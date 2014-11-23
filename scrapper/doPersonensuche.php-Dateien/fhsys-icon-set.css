@@ -1,0 +1,154 @@
+.fhsys-icon-accept {
+	background: url(../.././img/png/normal/accept_10x10.png);
+	background-image: url(../.././img/svg/accept.svg), none;
+	background-size: contain;
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	background-repeat: no-repeat;
+}
+
+.fhsys-icon-alert {
+	background: url(../.././img/png/normal/alert_14x14.png);
+	background-image: url(../.././img/svg/alert.svg), none;
+	background-size: contain;
+	width: 14px;
+	height: 14px;
+	display: inline-block;
+	background-repeat: no-repeat;
+}
+
+.fhsys-icon-alert-big {
+	background: url(../.././img/png/big/alert_28x28.png);
+	background-image: url(../.././img/svg/alert.svg), none;
+	background-size: contain;
+	width: 28px;
+	height: 28px;
+	display: inline-block;
+	background-repeat: no-repeat;
+}
+
+.fhsys-icon-arrow-down {
+	background: url(../.././img/png/normal/arrow-down_12x12.png);
+	background-image: url(../.././img/svg/arrow-down.svg), none;
+	background-size: contain;
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	vertical-align: top;
+	cursor: pointer;
+}
+
+.fhsys-icon-arrow-up {
+	background: url(../.././img/png/normal/arrow-up_12x12.png);
+	background-image: url(../.././img/svg/arrow-up.svg), none;
+	background-size: contain;
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	vertical-align: top;
+	cursor: pointer;
+}
+
+.fhsys-icon-avatar {
+	background: url(../.././img/png/normal/avatar_14x14.png);
+	background-image: url(../.././img/svg/avatar.svg), none;
+	background-size: contain;
+	width: 14px;
+	height: 14px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	vertical-align: text-bottom;
+	cursor: pointer;
+}
+
+.fhsys-icon-blank {
+	background: url(../.././img/png/normal/blank_10x10.png);
+	background-image: url(../.././img/svg/blank.svg), none;
+	background-size: contain;
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	background-repeat: no-repeat;
+}
+
+.fhsys-icon-cross {
+	background: url(../.././img/png/normal/cross_10x10.png);
+	background-image: url(../.././img/svg/cross.svg), none;
+	background-size: contain;
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	background-repeat: no-repeat;
+}
+
+.fhsys-icon-info {
+	background: url(../.././img/png/normal/info_14x14.png);
+	background-image: url(../.././img/svg/info.svg), none;
+	background-size: contain;
+	width: 14px;
+	height: 14px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	vertical-align: text-bottom;
+}
+
+.fhsys-icon-info-big {
+	background: url(../.././img/png/big/info_28x28.png);
+	background-image: url(../.././img/svg/info.svg), none;
+	background-size: contain;
+	width: 28px;
+	height: 28px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	vertical-align: text-bottom;
+}
+
+.fhsys-icon-mail {
+	background: url(../.././img/png/normal/mail_17x12.png);
+	background-image: url(../.././img/svg/mail.svg), none;
+	background-size: contain;
+	width: 17px;
+	height: 13px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	vertical-align: text-bottom;
+	cursor: pointer;
+}
+
+.fhsys-icon-pencil {
+	background: url(../.././img/png/normal/pencil_14x14.png);
+	background-image: url(../.././img/svg/pencil.svg), none;
+	background-size: contain;
+	width: 14px;
+	height: 14px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+
+.fhsys-icon-save {
+	background: url(../.././img/png/normal/save_14x14.png);
+	background-image: url(../.././img/svg/save.svg), none;
+	background-size: contain;
+	width: 14px;
+	height: 14px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+
+.fhsys-icon-todo {
+	background: url(../.././img/png/normal/todo_40x40.png);
+	background-image: url(../.././img/svg/todo.svg), none;
+	background-size: contain;
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	position: absolute;
+	left: -12px;
+	top: -15px;
+	background-repeat: no-repeat;
+}

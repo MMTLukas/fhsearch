@@ -1,0 +1,925 @@
+body {
+	margin:0px;
+}
+
+table{
+	font-family: Arial, Verdana;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	color:#000000;
+}
+
+th {
+	/*ist ohnehin der default Wert für Browser; das explizite setzen verhindert aber das unerwünschte Erben anderer Werte von umliegenden Elementen*/
+	text-align: center;
+}
+
+div#box {
+ z-index: 1000;
+}
+
+ .borders{
+	border-collapse:collapse;
+	padding:0px;
+	border:0px;
+	}
+
+.topleft{
+	vertical-align:top;
+	text-align:left;
+	}
+
+.middleright{
+	vertical-align:middle;
+	text-align:right;
+	}
+
+.topright{
+	vertical-align:top;
+	text-align:right;
+	}
+
+
+.bottomright{
+	vertical-align:bottom;
+	text-align:right;
+	}
+
+.colorgrey{
+	background:#999999;
+}
+
+.colordarkgrey{
+	background:#616161;
+}
+
+.colorred{
+ background:#6b0000;
+}
+
+.colorclear{
+ background:#e2e2e2;
+}
+
+.bottomleft{
+	vertical-align:bottom;
+	text-align:left;
+	}
+
+.tabueberschrift
+{
+	font-family: Arial, Verdana;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 13px;
+	vertical-align: middle;
+	text-align: right;
+	text-indent: 5px;
+}
+
+.textheader
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 12px;
+	vertical-align: top;
+	text-align:left;
+}
+
+.text
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 12px;
+	vertical-align: top;
+	text-align:right;
+}
+
+.topnavi
+{
+	font-family: Arial, Verdana;
+	color: #333333;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: bold;
+	line-height: 12px;
+	vertical-align: top;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 4px;
+	text-align:right;
+}
+
+.topbar {
+	width: 100%;
+	position: fixed;
+	bottom: 0px;
+	background: #616161;
+	z-index: 100;
+	border: 0px solid black;
+}
+
+.textl
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 12px;
+	vertical-align: middle;
+	text-align:left;
+}
+
+.tableindent
+{
+text-indent: 5px;
+}
+
+.link
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 12px;
+	vertical-align: top;
+	text-align:right;
+}
+
+.fehler
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 12px;
+	vertical-align: top;
+	text-align:left;
+}
+
+.info
+{
+	font-family: Arial, Verdana;
+	color: #000000;
+	font-size: 10px;
+	font-weight: normal;
+}
+
+
+
+/*CSS für Online Bewerbung*/
+
+.seitetitel
+{
+	padding-top:10px;
+	padding-bottom:8px;
+	font-family: arial,Verdana;
+	color: #6B0000;
+	font-size: 19px;
+	font-weight: normal;
+
+}
+
+
+.headerob
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+}
+
+th.beurUebersicht
+{
+	text-align: left;
+	color: #000000;
+}
+td.beurUebersicht
+{
+	text-align: center;
+}
+
+
+.optionsueberschrift
+{
+	font-family: Arial, Verdana;
+	color: #000000;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+}
+
+.optionstext
+{
+	font-family: Arial, Verdana;
+	color: #000000;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	padding-left:15px;
+}
+
+
+.headerindentob
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	text-indent: 23px;
+}
+
+td.webVertraege
+{
+	font-family: Arial, Verdana;
+	font-size: 12px;
+	font-style: normal;
+	text-indent: 10px;
+}
+dt.webVertraege
+{
+	font-family: Arial, Verdana;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	text-indent: 10px;
+}
+dd.webVertraege
+{
+	font-family: Arial, Verdana;
+	font-size: 12px;
+	font-style: italic;
+	text-indent: 10px;
+}
+
+.hilfe
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	line-height: 20px;
+
+}
+
+.subheaderob
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	text-indent: 22px;
+}
+
+.subheadebox
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+
+}
+
+
+.inte_neuAnlegen
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	text-indent: 22px;
+}
+
+.breadred
+{
+
+}
+
+.beschreibungheader
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.beschreibungob
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.textob
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	padding-left: 23px;
+}
+
+
+
+.textob_strong
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	padding-left: 23px;
+}
+
+
+.textob_indent
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 12px;
+	font-style: normal;
+	padding-left: 23px;
+	text-indent: 10px;
+}
+
+
+.textobohne
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.textob_inte
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	padding-left: 23px;
+	vertical-align: middle;
+}
+
+.textob_beng_aenderung
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 9px;
+	font-style: italic;
+	font-weight: normal;
+	padding-right: 10px;
+	vertical-align: middle;
+	text-align: right;
+}
+
+.textob_beng_title
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 11px;
+	font-style: italic;
+	font-weight: bold;
+	padding-right: 15px;
+	vertical-align: middle;
+	text-align: right;
+}
+
+.textob_beng
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 11px;
+	font-style: italic;
+	font-weight: normal;
+	padding-left: 15px;
+	vertical-align: middle;
+}
+
+.inte_search
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	vertical-align: bottom;
+}
+
+.bewerb
+{
+	font-family: Arial, Verdana;
+	color: #999999;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: normal;
+	padding-left: 8px;
+}
+
+.textnormalob
+{
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.tabellenindent
+{
+	padding-left: 23px;
+}
+
+.pflicht
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	padding-left: 95px;
+}
+
+.pflicht1
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	padding-left: 65px;
+}
+
+
+.pflicht2
+{
+	font-family: Arial, Verdana;
+	color: #6b0000;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	padding-left: 29px;
+}
+
+a.afordarkbg { font-weight: bold;}
+a.afordarkbg:visited, a.afordarkbg:link { color: silver; }
+a.afordarkbg:active, a.afordarkbg:hover { color: white; }
+
+a.stdAnchor, a.stdAnchor:link, a.stdAnchor:active, a.stdAnchor:hover {color: #730000;}
+A:link {color: #730000;}
+A:visited {color: #730000;}
+A:active {text-decoration: none; color: #730000;}
+A:hover {text-decoration: underline; color: #730000;}
+
+
+.schrift_pfad {
+	PADDING-RIGHT: 1px;
+	PADDING-LEFT: 5px;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 11px;
+	PADDING-TOP: 4px;
+	COLOR: #6b0000;
+	LINE-HEIGHT: 15px;
+	PADDING-TOP: 2px;
+	FONT-FAMILY: Arial, Sans-Serif;
+	background-color:#d1d1d1;
+}
+
+input {
+	color: #000000;
+	font-family: Arial, Verdana;
+	font-size: 11px;
+	font-weight: normal;
+	background: #ffffff;
+	border: 1px solid #555555;
+}
+
+input[type="button"],
+input[type="submit"] {
+	cursor: pointer;
+	filter: progid:DXImageTransform.Microsoft.Gradient (GradientType=0,StartColorStr='#ffffff',EndColorStr='#c0c0c0'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#c0c0c0)); /* for webkit browsers */
+	background: -moz-linear-gradient(top, #ffffff, #c0c0c0); /* for firefox 3.6+ */
+	background-image: -o-linear-gradient(#ffffff, #c0c0c0); /* Opera 11.10+, Safari 5.03+ and Chrome 7+*/
+}
+
+input[type="button"]:hover,
+input[type="submit"]:hover {
+	/*change gradient direction on hover*/
+	filter: progid:DXImageTransform.Microsoft.Gradient (GradientType=0,StartColorStr='#c0c0c0',EndColorStr='#ffffff'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#c0c0c0), to(#ffffff)); /* for webkit browsers */
+	background: -moz-linear-gradient(top, #c0c0c0, #ffffff); /* for firefox 3.6+ */
+	background-image: -o-linear-gradient(#c0c0c0, #ffffff); /* Opera 11.10+, Safari 5.03+ and Chrome 7+*/
+}
+
+input.btn {
+	/* toolbar button style */
+	overflow: visible;
+	font-size: 12px;
+	font-weight: bold;
+	margin: 0 3px;
+	padding: 0 8px;
+	border-width: 0px;
+	/*IE doesn't recognize the above defined attribute-selector due to the missing doctype in FHSys*/
+	/*in order to at least have the style on the toolbar buttons here are set some redundant attributes*/
+	cursor: pointer;
+	filter: progid:DXImageTransform.Microsoft.Gradient (GradientType=0,StartColorStr='#ffffff',EndColorStr='#c0c0c0'); /* for IE */
+}
+
+input.box {
+	color: #000000;
+	font-family: Arial, Verdana;
+	font-size: 75%;
+	font-weight: bold;
+	background: #ffffff;
+	border: 1px solid #730000;
+	padding: 2px;
+}
+
+textarea.box{
+   color:#000000;
+   font-family:arial,helvetica,sans-serif;
+   font-size:75%;
+   font-weight:bold;
+   padding: 2px;
+   }
+
+textarea{
+   color:#000000;
+   font-family:arial,helvetica,sans-serif;
+   font-size:11px;
+   font-weight:normal;
+   background-color:#ffffff;
+   border:1px solid;
+   border-top-color:#730000;
+   border-left-color:#730000;
+   border-right-color:#730000;
+   border-bottom-color:#730000;
+   padding-left:1px;
+   }
+
+select.box{
+   color:#000000;
+   font-family:arial,helvetica,sans-serif;
+   font-size:75%;
+   font-weight:bold;
+   background-color:#FFFFFF;
+   border:1px dotted;
+   border-top-color:#730000;
+   border-left-color:#730000;
+   border-right-color:#730000;
+   border-bottom-color:#730000;
+   }
+
+select{
+   color:#000000;
+   font-family:arial,helvetica,sans-serif;
+   font-size:11px;
+   font-weight:normal;
+   background-color:#FFFFFF;
+   border:1px solid;
+   border-top-color:#730000;
+   border-left-color:#730000;
+   border-right-color:#730000;
+   border-bottom-color:#730000;
+   }
+
+.hell
+{
+	font-family: Arial, Verdana;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	color:#000000;
+}
+
+
+.dunkel
+{
+	background-color:#C9C9C9;
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.alert
+{
+	background-color:#D4745B;
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.geleseneMitteilung
+{
+	background-color:#99ff99;
+	font-family: Arial, Verdana;
+	color: #3c3c3c;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+
+.selected
+{
+	background-color:#FC8C8C;
+	font-family: Arial, Verdana;
+	color: #ffffff;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.selected1
+{
+	background-color: #ddffbb;
+}
+
+.selected2
+{
+	background-color: #e3aa66;
+}
+
+.disabled
+{
+	color:#666666;
+	background-color:#dfdfdf;
+	border: 1px solid #666666;
+}
+
+.th
+{
+	font-family: Arial, Verdana;
+	color: #ffffff;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	background-color:#616161;
+}
+
+.meldung{
+	font-family: arial,verdana;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	color:#6B0000;
+	background-color:#ffffff;
+}
+
+.aenderungstext
+{
+	font-family: Arial, Verdana;
+	color: #000000;
+	font-size: 9px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.legende
+{
+	font-family: Arial, Verdana;
+	color: #000000;
+	font-size: 10px;
+	font-style: italic;
+	font-weight: normal;
+}
+
+ fieldset
+{
+	border: 1px solid #6B0000;
+	width: 20em;
+	padding-left:10px;
+	padding-right:10px;
+	padding-bottom:10px;
+}
+
+ legend
+{
+	padding-top:6px;
+	padding-bottom:6px;
+	font-family: arial,Verdana;
+	color: #6B0000;
+	font-size: 19px;
+	font-weight: normal;
+
+}
+
+.formborder
+{
+
+border:1px solid;
+border-color:#999999;
+background-color:#DFDFDF;
+padding-top: 0px;
+padding-bottom: 0px;
+padding-left:4px;
+padding-right:4px;
+margin-bottom:25px;
+}
+
+.formborder_innertable
+{
+border:1px solid;
+border-color:#999999;
+background-color:#DFDFDF;
+padding-top: 0px;
+padding-bottom: 0px;
+padding-left:4px;
+padding-right:4px;
+margin-bottom:0px;
+}
+
+.formborderpadding
+{
+
+border:0px;
+margin-top: 10px;
+}
+
+.formborderpaddinglist
+{
+
+border:0px;
+margin-top: 0px;
+}
+
+.formpadding
+{
+
+border:0px;
+margin-top: 20px;
+}
+
+.tableInCell
+{
+
+border:10px solid;
+border-color:#000000;
+background-color:#ffffff;
+padding-left:3px;
+padding-right:3px;
+}
+
+.meldungsborder
+{
+
+	border:2px solid;
+	border-color:#FD3600;
+	background-color:#ffffff;
+	font-family: arial,verdana;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	color:#6B0000;
+
+}
+
+
+.normalertext{
+	font-family: arial,verdana;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.seiteWirdGeneriert  {position:absolute; top:300px; left:500px; height:280px; z-index:99; visibility:hidden;}
+
+
+/* heading for html-forms - helps to devide the form in different sections with section-header-text */
+div.formSectionHeading{
+	margin: 10px 0px 5px 0px;
+	border-bottom: 1px solid #6B0000;
+	text-indent: 20px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#hiddenTextinput{
+	border: 0px;
+	margin: 0px 5px 0px 10px;
+	background-color: #DFDFDF;
+	color: #6B0000;
+	font-weight: bold;
+	text-align: right;
+}
+
+.table_data_red{ 
+	background-color: #D4745B !important;
+}
+
+.table_data_green{ 
+	background-color: #99FF99 !important;
+}
+
+/* login-screen - style-sheet - start */
+#afterLogin_container {
+	position: relative;
+	text-align: center;
+	width: 99.99%;
+	float: left;
+	background-image: url("../../img/start_bild.jpg");
+	background-repeat: no-repeat;
+	background-position: center top;
+	margin-top: 100px;
+}
+#afterLogin_content {
+	width:775px; 
+	height:411px;
+}
+#afterLogin_text{
+	font-family:arial,helvetica,sans-serif;
+	font-size:12px;
+	font-weight:normal;
+	color:#FFFFFF;
+	
+	text-align: left;
+	margin: 175px 0px 0px 310px;
+}
+
+.weisserLink{
+	font-family:arial,helvetica,sans-serif;
+	font-size:12px;
+	font-weight:normal;
+	color:#FFFFFF;
+	text-align: left;
+}
+
+
+/* login-screen - style-sheet - end */
+
+
+/* background for anwesenheitsstati-selectbox */
+#bg_anwesend{
+	background-color: #00CC99;
+}
+#bg_abwesend{
+	background-color: #FF6633;
+}
+
+span.aktionLink {
+	color: #6b0000;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.formError { background-color: #FF3F3F; }
+
+/* end *//* end */
+
+.DateiDownload_UploadDownloadContainer {
+	width: 300px;
+	height: 46px;
+	position: relative;
+}
+.DateiDownload_downloadContainer {
+	width: 300px;
+	position: relative;
+}
+.DateiDownload_downloadLink {
+}
+.DateiDownload_downloadSize {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+.DateiDownload_downloadChangeInfo {
+	display: block;
+	text-align: right;
+}
+.DateiDownload_ersetzenBeibehaltenLinks {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+}
+.DateiDownload_beschaffenheitText {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+}
+.DateiDownload_UploadDownloadContainer input {
+	width: 100%;
+}

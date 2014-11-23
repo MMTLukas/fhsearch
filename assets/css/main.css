@@ -1,0 +1,44 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+    font-family: Verdana;
+}
+
+#container {
+    display: block;
+    width: 1024px;
+    margin: 0 auto;
+}
+
+#container #input {
+    width: 100%;
+    margin: 0 auto;
+    height: 60px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+#container #results {
+    width: 1024px;
+}
+
+header, footer{
+    width:100%;
+}
+
+header img{
+    margin:10px;
+}
+
+footer{
+    color:#444;
+    text-align: center;
+    padding:10px;
+}
+
+a:link, a:visited{
+    color:#444;
+}
