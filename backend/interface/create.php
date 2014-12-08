@@ -1,10 +1,4 @@
 <?php
-  /**
-   * Created by PhpStorm.
-   * User: Enthusiasmus
-   * Date: 12.10.2014
-   * Time: 10:07
-   */
 
   require "../models/human.php";
   require "../dao/dao.php";
