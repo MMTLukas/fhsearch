@@ -1,12 +1,10 @@
 var App = angular.module("fhs-search", ["ngRoute"]);
-l = console.log;
 
 angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $location) {
-  var url = "backend/interface/query.php"; // The url of our search
+  var url = "backend/interface/query.php";
   $scope.persons = null;
-  // The function that will be executed on button click (ng-click="search()")
 
-  $scope.search = function () {
+  $scope.getPersons = function () {
     if ($scope.query.length == 0) {
       $location.search("query", null);
     } else {
@@ -32,13 +30,10 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
       });
   };
 
-  console.log("asdf");
-
   if($location.search()){
-    console.log($location.search());
     var query = $location.search().query || "";
     $scope.query = query;
-    $scope.search();
+    $scope.getPersons();
   }
 });
 

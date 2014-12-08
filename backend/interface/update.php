@@ -3,7 +3,10 @@
   require "../models/human.php";
   require "../dao/dao.php";
 
-  if (isset($_POST["id"])) {
-    $human = Human::fromDetails($_POST["id"], $_POST["email"], $_POST["url"]);
+var_dump($_POST);
+
+
+  if (isset($decoded["details"])) {
+    $human = Human::fromDetails($decoded["details"]["id"], $decoded["details"]["email"], $decoded["details"]["url"]);
     return updateHuman($human);
   }
