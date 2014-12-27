@@ -292,7 +292,7 @@ figure.effect-apollo p {
     top: 0;
     margin: 2em;
     padding: 0 1em;
-    max-width: 150px;
+    max-width: 100%;
     border-right: 4px solid #fff;
     text-align: right;
     opacity: 0;

@@ -11,10 +11,10 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
       $location.search("query", $scope.query);
     }
 
-    if (String.toLowerCase($scope.query).indexOf("fhs") > -1 && $scope.query.length < 6) {
+    if (String.toLowerCase($scope.query).indexOf("fhs") > -1 && $scope.query.length < 5) {
       $scope.persons = null;
       return;
-    } else if ($scope.query.length < 4) {
+    } else if ($scope.query.length < 3) {
       $scope.persons = null;
       return;
     }

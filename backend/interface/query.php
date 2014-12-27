@@ -12,13 +12,10 @@
 
     //stripos is not case sensitive
     //strpos is case sensitive
-    if (stripos($data, "fhs") !== false) {
-      if (strlen($data) < 6) {
-        return json_encode([]);
-      }
+    if (stripos($data, "fhs") !== false && strlen($data) < 5) {
       $results = getPeopleByFhs(strtolower($data));
-    } else {
-      $results = getPeopleByName($data);
+    }  else {
+      $results = getPeopleByNameAndGroup($data);
     }
 
     echo json_encode($results);

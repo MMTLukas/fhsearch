@@ -3,10 +3,8 @@
   require "../models/human.php";
   require "../dao/dao.php";
 
-var_dump($_POST);
+  $decoded = json_decode($_POST["details"], true);
+  $count = count($decoded);
 
-
-  if (isset($decoded["details"])) {
-    $human = Human::fromDetails($decoded["details"]["id"], $decoded["details"]["email"], $decoded["details"]["url"]);
-    return updateHuman($human);
-  }
+  $human = Human::fromDetails($decoded["id"], $decoded["email"], $decoded["url"]);
+  echo updateHuman($human);

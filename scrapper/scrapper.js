@@ -57,7 +57,12 @@ casper.thenOpen("https://fhsys.fh-salzburg.ac.at/controller/priv/personensuche.p
  */
 
 casper.then(function () {
-  this.echo("# search for '" + query + "'", "COMMENT");
+  if(query === " "){
+    this.echo("# search for \"" + query + "\" - will require approximately 1-2 minutes", "COMMENT");
+  }else{
+    this.echo("# search for \"" + query + "\"", "COMMENT");
+  }
+
   this.fillXPath(xPath("/html/body/table[2]/tbody/tr/td/form"), {
     "//table/tbody/tr[2]/td/table/tbody/tr[2]/td[3]/input": query
   }, false);
@@ -70,107 +75,124 @@ casper.then(function () {
  * Store overview and navigate to every result to store further data
  */
 
-casper.then(function (allLinkIds) {
-  var idx = 0;
-  var data = {
-    length: 0
-  };
+var overview = null;
+var idx = 8679;
 
+casper.then(function () {
   //Send overview to database
-  this.then(function () {
-    data = this.evaluate(function () {
-      var form = document.getElementsByName("form1") [0];
-      var table = form.getElementsByTagName("tbody") [0];
-      var lines = table.querySelectorAll("tr.hell, tr.dunkel");
-      var data = new Array();
+  overview = this.evaluate(function () {
+    var form = document.getElementsByName("form1") [0];
+    var table = form.getElementsByTagName("tbody") [0];
+    var lines = table.querySelectorAll("tr.hell, tr.dunkel");
+    var data = new Array();
 
-      for (var i = 0; i < lines.length; i++) {
-        var column = lines[i].children;
-        var fhsId = column[6].innerHTML.split("\'") [1];
+    for (var i = 0; i < lines.length; i++) {
+      var column = lines[i].children;
+      var fhsId = column[6].innerHTML.split("\'") [1];
 
-        data.push({
-          "lastname": column[0].innerHTML,
-          "prename": column[1].innerHTML,
-          "department": column[2].innerHTML,
-          "type": column[3].innerHTML,
-          "id": fhsId
-        });
-      }
-
-      __utils__.log("1 " + new Date().getTime(), "error");
-      //__utils__.sendAJAX(config.urlInterface + "/create.php", "POST", JSON.stringify({"data": data}), false);
-      __utils__.log("2 " + new Date().getTime(), "error");
-      return data || {};
-    });
-  });
-
-  this.thenOpen(config.urlInterface + "/create.php", {
-    method: 'POST',
-    data: data
-  });
-
-  this.echo("3 " + new Date().getTime())
-
-  this.then(function () {
-    this.echo("4 " + new Date().getTime())
-    if (data.length > 0) {
-      this.echo("# save overview of " + data.length + " entries to database", "COMMENT");
+      data.push({
+        "lastname": column[0].innerHTML,
+        "prename": column[1].innerHTML,
+        "department": column[2].innerHTML,
+        "type": column[3].innerHTML,
+        "id": fhsId
+      });
     }
-    this.echo("5 " + new Date().getTime())
-  })
 
-  this.echo("6 " + new Date().getTime())
-  //Click on every link to open the detailed data of a person
+    return data || {};
+  });
 
-  this.then(function () {
-    this.repeat(data.length, function () {
-      var id = data[idx].id;
-      idx++;
+  casper.then(function(){
+    this.echo("# save overview of " + overview.length + " entries to database", "COMMENT");
+  });
 
-      this.echo("# open details link " + idx + "/" + data.length + ": " + id, "COMMENT");
+  /*casper.thenOpen(config.urlInterface + "/create.php", {
+    method: "POST",
+    data: {
+      "data": JSON.stringify(overview)
+    }
+  });*/
+});
 
-      this.then(function () {
-        this.evaluate(function (id) {
-          personAuswaehlen(id);
-        }, id);
+/**
+ * Open single link and saved details for every person in the result
+ */
+
+casper.then(function () {
+  this.repeat(overview.length, function () {
+    var id = overview[idx].id;
+    idx++;
+
+    //Open single link from overview
+    this.then(function () {
+      this.echo("# open link " + idx + "/" + overview.length + ": " + id, "COMMENT");
+
+      this.evaluate(function (id) {
+        personAuswaehlen(id);
+      }, id);
+    });
+
+    /**
+     * Send details of a person to database
+     */
+    this.then(function () {
+      var id = overview[idx - 1].id;
+
+      var details = this.evaluate(function (id) {
+        var field = document.querySelectorAll(".formborder") [0];
+        var information = field.querySelectorAll("td[align]") [0];
+        var email = information.childNodes[4].textContent.trim();
+        var image = document.querySelector("form table.formborder tbody tr td table tbody tr td img");
+
+        var url = "";
+        if(image.src !== "https://fhsys.fh-salzburg.ac.at/img/keinBild.gif"){
+          url = image.src;
+        }
+
+        return {
+          "id": id,
+          "url": url,
+          "email": email
+        };
+      }, id);
+
+      /**
+       * Save details to database
+       */
+      this.thenOpen(config.urlInterface + "/update.php", {
+        method: "POST",
+        data: {
+          "details": JSON.stringify(details)
+        }
+      }, function (response) {
+        this.echo("# save details of " + idx + "/" + overview.length + ": " + id, "COMMENT");
       });
 
-      //Send details of a person to database
-      this.then(function () {
-        this.echo("# save details to database and picture in directory", "COMMENT");
-        var id = data[idx - 1].id;
+      /**
+       * Save picture to directory and wait for one second to not overstrain fhsys to much
+       */
+      this.then(function(){
+        if(details.url !== ""){
+          this.download(details.url, "pictures/" + id + ".png");
+        }
 
-        var imageSrc = this.evaluate(function (id) {
-          var field = document.querySelectorAll(".formborder") [0];
-          var information = field.querySelectorAll("td[align]") [0];
-          var email = information.childNodes[4].textContent.trim();
+        this.wait(1000);
+      });
+    });
 
-          var image = document.querySelector("form table.formborder tbody tr td table tbody tr td img");
-
-          var details = {
-            "id": id,
-            "url": image.src,
-            "email": email
-          };
-
-          //__utils__.sendAJAX(config.urlInterface + "/update.php", "POST", JSON.stringify({"details": details}));
-          return image.src;
-        }, id);
-
-        //this.capture("screenshot_" + id + ".png");
-        this.download(imageSrc, "pictures/" + id + ".png");
-
-        //Go back to the person search with only a quick result for the needed function 'personenSuchen'
-        //This is a workaround for not loading the whole overview again and again
-        casper.thenOpen("https://fhsys.fh-salzburg.ac.at/controller/priv/personensuche.php");
-        casper.then(function () {
-          var query = "Aalai"; //Random only once time existing lastname
-          this.fillXPath(xPath("/html/body/table[2]/tbody/tr/td/form"), {
-            "//table/tbody/tr[2]/td/table/tbody/tr[2]/td[3]/input": "Aalai"
-          }, false);
-          this.evaluate(function () {
-            personenSuchen();
-          });
+    /**
+     * Go back to the person search with only a quick result for the needed function 'personenSuchen'
+     * This is a workaround for not loading the whole overview again and again
+     */
+    this.then(function () {
+      casper.thenOpen("https://fhsys.fh-salzburg.ac.at/controller/priv/personensuche.php");
+      casper.then(function () {
+        var query = "Aalai"; //Random only once time existing lastname
+        this.fillXPath(xPath("/html/body/table[2]/tbody/tr/td/form"), {
+          "//table/tbody/tr[2]/td/table/tbody/tr[2]/td[3]/input": "Aalai"
+        }, false);
+        this.evaluate(function () {
+          personenSuchen();
         });
       });
     });
@@ -178,7 +200,7 @@ casper.then(function (allLinkIds) {
 });
 
 /**
- * Execute scriped and printing message when finished
+ * Execute script and printing message when finished
  */
 
 casper.run(function () {
@@ -191,11 +213,19 @@ casper.run(function () {
  */
 
 casper.on("http.status.500", function (resource) {
-  this.echo(resource);
+  //this.echo("HTTP STATUS CODE 500");
 });
 
-casper.on("http.status.404", function (resource) {
-  this.echo(resource);
+casper.on("http.status.200", function (resource) {
+  //this.echo("HTTP STATUS CODE 200");
+});
+
+casper.on("http.status.304", function (resource) {
+  //this.echo("HTTP STATUS CODE 304");
+});
+
+casper.on("http.status.501", function (resource) {
+  //this.echo("HTTP STATUS CODE 501");
 });
 
 /**

@@ -3,13 +3,11 @@
   require "../models/human.php";
   require "../dao/dao.php";
 
-  $handle = fopen("php://input", "r");
-  $jsonInput = fgets($handle);
-  $decoded = json_decode($jsonInput, true);
-  $count = count($decoded["data"]);
+  $decoded = json_decode($_POST["data"], true);
+  $count = count($decoded);
 
   for ($i = 0; $i < $count; $i++) {
-    $human = Human::fromOverview($decoded["data"][$i]["prename"], $decoded["data"][$i]["lastname"], $decoded["data"][$i]["department"], $decoded["data"][$i]["type"], $decoded["data"][$i]["id"]);
+    $human = Human::fromOverview($decoded[$i]["prename"], $decoded[$i]["lastname"], $decoded[$i]["department"], $decoded[$i]["type"], $decoded[$i]["id"]);
     echo insertHuman($human);
   }
 
