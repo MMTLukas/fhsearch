@@ -1,27 +1,29 @@
-var App = angular.module("fhs-search", ["ngRoute"]);
+var App = angular.module("fhs-search", ["ngRoute", "ui.bootstrap"]);
 
-angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $location) {
+angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $location, $log) {
   var url = "backend/interface/query.php";
   $scope.persons = null;
+  $scope.itemsPerPage = 8;
+  $scope.needPagination = false;
+  document.querySelector(".form-wrapper input").focus();
 
-  $scope.getPersons = function () {
-    if ($scope.query.length == 0) {
-      $location.search("query", null);
-    } else {
-      $location.search("query", $scope.query);
-    }
+  /**
+   * Get people and details from the server
+   */
+  var requestPeople = function (offset) {
+    $http.post(url, {"data": $scope.query, "offset": offset}).
+      success(function (data) {
+        $scope.persons = data.people;
 
-    if (String.toLowerCase($scope.query).indexOf("fhs") > -1 && $scope.query.length < 5) {
-      $scope.persons = null;
-      return;
-    } else if ($scope.query.length < 3) {
-      $scope.persons = null;
-      return;
-    }
+        $scope.totalItems = data.count;
+        $scope.offset = data.offset;
+        $scope.currentPage = Math.floor(data.offset / $scope.itemsPerPage)+1;
 
-    $http.post(url, {"data": $scope.query}).
-      success(function (data, status) {
-        $scope.persons = data;
+        if($scope.totalItems > $scope.itemsPerPage){
+          $scope.needPagination = true;
+        }else{
+          $scope.needPagination = false;
+        }
       })
       .error(function (data, status) {
         $scope.data = data || "Request failed";
@@ -30,11 +32,45 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
       });
   };
 
-  if($location.search()){
-    var query = $location.search().query || "";
+  /**
+   * Handle search input
+   */
+  $scope.getPeople = function (offset) {
+    if ($scope.query.length == 0) {
+      $location.search("q", "");
+    } else {
+      $location.search("q", $scope.query);
+    }
+
+    if (String.toLowerCase($scope.query).indexOf("fhs") > -1 && $scope.query.length < 5) {
+      $scope.persons = null;
+      $scope.needPagination = false;
+      return;
+    } else if ($scope.query.length < 3) {
+      $scope.persons = null;
+      $scope.needPagination = false;
+      return;
+    }
+
+    requestPeople(0);
+  };
+
+  /**
+   * Updating URL in browser
+   */
+  if ($location.search()) {
+    var query = $location.search().q || "";
     $scope.query = query;
-    $scope.getPersons();
+    $scope.getPeople();
   }
+
+  /**
+   * Pagination
+   */
+  $scope.pageChanged = function () {
+    $log.log('Page changed to: ' + $scope.currentPage);
+    requestPeople($scope.itemsPerPage*$scope.currentPage-$scope.itemsPerPage)
+  };
 });
 
 App.config(['$routeProvider',

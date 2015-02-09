@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link href="assets/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/main.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/hover.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/form.css" type="text/css" rel="stylesheet"/>
@@ -14,9 +15,9 @@
 
         <div id="search">
             <div class="form-wrapper">
-                <input type="text" placeholder="Name oder FHS-Nummer hier eingeben..." ng-change="getPersons()"
+                <input type="text" placeholder="Name oder FHS-Nummer hier eingeben..." ng-change="getPeople()"
                        ng-model="query">
-                <button type="submit" ng-click="getPersons()">Suchen</button>
+                <button type="submit" ng-click="getPeople()">Suchen</button>
             </div>
         </div>
     </header>
@@ -26,6 +27,7 @@
                 <img src="scrapper/pictures/{{person.id}}.png" alt="{{lastname}}"/>
                 <figcaption>
                     <h2>{{person.prename}} <span>{{person.lastname}}</span></h2>
+
                     <p>
                         {{person.department}}<br><br>
                         {{person.id}}<br><br>
@@ -37,12 +39,18 @@
         </div>
     </div>
     <br style="clear: both;"/>
+    <div id="pagination-wrap">
+        <pagination boundary-links="true" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()" ng-show="needPagination" class="pagination-sm"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        <br style="clear: both;"/>
+    </div>
     <footer>
         FHS-Search | Version 0.1 Alpha | ©® <a href="mailto:lwanko.mmt-m2014@fh-salzburg.ac.at">Wanko Lukas</a> |
         MultiMediaTechnology | FH-Salzburg | 2014
     </footer>
     <script type="text/javascript" rel="script" src="assets/js/angular.js"></script>
     <script type="text/javascript" rel="script" src="assets/js/angular-route.js"></script>
+    <script type="text/javascript" rel="script" src="assets/js/ui-bootstrap-tpls-0.12.0.js"></script>
     <script type="text/javascript" rel="script" src="assets/js/main.js"></script>
 </div>
 </body>

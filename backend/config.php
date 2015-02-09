@@ -11,4 +11,4 @@
   $DB_PASS = "";
   $DSN = "mysql:dbname=$DB_NAME;host=localhost";
 
-  $LIMIT = 20;
+  $LIMIT = 8;
