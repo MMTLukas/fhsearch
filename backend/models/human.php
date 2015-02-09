@@ -17,11 +17,6 @@ class Human
     protected $pictureUrlFhs;
     protected $pictureUrlLocal;
 
-    public function __construct()
-    {
-
-    }
-
     public static function fromOverview($prename, $lastname, $department, $type, $id){
         $human = new self();
 
@@ -44,15 +39,6 @@ class Human
         return $human;
     }
 
-    public function getPrename()
-    {
-        return $this->prename;
-    }
-
-    public function setPrename($value)
-    {
-        $this->prename = $value;
-    }
 
     public function getLastname()
     {
@@ -122,6 +108,16 @@ class Human
     public function setPictureUrlLocal($value)
     {
         $this->pictureUrlLocal = $value;
+    }
+
+    public function getPrename()
+    {
+        return $this->prename;
+    }
+
+    public function setPrename($value)
+    {
+        $this->prename = $value;
     }
 
 }

@@ -8,14 +8,13 @@
 
   if (isset($decoded["data"])) {
     $data = $decoded["data"];
+    $offset = @$decoded["offset"] ? $decoded["offset"] : 0;
     $results = [];
 
-    //stripos is not case sensitive
-    //strpos is case sensitive
-    if (stripos($data, "fhs") !== false && strlen($data) < 5) {
-      $results = getPeopleByFhs(strtolower($data));
+    if (stripos($data, "fhs") !== false && strlen($data) >= 6) {
+      $results = getPeopleByFhs(strtolower($data), $offset);
     }  else {
-      $results = getPeopleByNameAndGroup($data);
+      $results = getPeopleByNameAndGroup($data, $offset);
     }
 
     echo json_encode($results);
