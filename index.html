@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <title></title>
     <link href="assets/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/css/main.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/hover.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/form.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/css/main.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
 <div id="container" ng-controller="SearchCtrl">
     <header>
-        <a href="./search.html"><img src="assets/img/fhsearch.jpg"/></a>
+        <a href="./index.html"><img src="assets/img/fhsearch.jpg"/></a>
 
         <div id="search">
             <div class="form-wrapper">
-                <input type="text" placeholder="Name oder FHS-Nummer hier eingeben..." ng-change="getPeople()"
+                <input type="text" placeholder="Name, FHS-Nummer oder Jahrgang hier eingeben... z.B. Max Mustermann, fhs12345, ITS, MMT-B, MMA-M2014" ng-change="getPeople()"
                        ng-model="query">
                 <button type="submit" ng-click="getPeople()">Suchen</button>
             </div>
@@ -46,7 +46,7 @@
     </div>
     <footer>
         FHS-Search | Version 0.1 Alpha | ©® <a href="mailto:lwanko.mmt-m2014@fh-salzburg.ac.at">Wanko Lukas</a> |
-        MultiMediaTechnology | FH-Salzburg | 2014
+        MultiMediaTechnology | FH-Salzburg | 2015
     </footer>
     <script type="text/javascript" rel="script" src="assets/js/angular.js"></script>
     <script type="text/javascript" rel="script" src="assets/js/angular-route.js"></script>

@@ -9,36 +9,93 @@ html, body {
 
 #container {
     display: block;
-    width: 1024px;
     margin: 0 auto;
-}
-
-#container #input {
-    width: 100%;
-    margin: 0 auto;
-    height: 60px;
-    padding-top: 20px;
-    text-align: center;
-}
-
-#container #results {
-    width: 1024px;
-}
-
-header, footer{
-    width:100%;
-}
-
-header img{
-    margin:10px;
-}
-
-footer{
-    color:#444;
-    text-align: center;
     padding:10px;
 }
 
-a:link, a:visited{
-    color:#444;
+#container #results {
+    width: 100%;
 }
+
+header, footer {
+    width: 100%;
+}
+
+header img {
+    margin: 10px;
+}
+
+footer {
+    color: #444;
+    text-align: center;
+    padding: 10px;
+}
+
+a:link, a:visited {
+    color: #444;
+}
+
+/**
+ * For bootstrap
+ */
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+.pagination {
+    float: right;
+    margin-right: 10px;
+}
+
+#pagination-wrap {
+    width: 100%;
+}
+
+/** Mobile **/
+
+@media only screen and (max-width: 1043px) {
+    #container {
+        width: 100%;
+    }
+
+    .form-wrapper input {
+        width: 100%;
+    }
+
+    .form-wrapper button{
+        display:none;
+    }
+}
+
+
+@media only screen and (max-width: 512px) {
+    #results .grid{
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        width:100%;
+        height:auto;
+        margin:0px;
+    }
+
+    #results .grid img{
+        width:100%;
+        height:auto;
+    }
+
+    .form-wrapper{
+        padding:0;
+    }
+
+    #container{
+        min-width:280px;
+    }
+}
+
+@media only screen and (min-width: 1044px) {
+    #container {
+        width: 1044px;
+    }
+}
+
+
