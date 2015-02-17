@@ -1,4 +1,20 @@
-<<<<<<< HEAD
+<
+<
+<
+<
+<
+<
+<
+HEAD
+<
+
+<
+<
+<
+<
+<
+<
+HEAD
 html, body {
     width: 100%;
     height: 100%;
@@ -11,7 +27,7 @@ html, body {
 #container {
     display: block;
     margin: 0 auto;
-    padding:10px;
+    padding: 10px;
 }
 
 #container #results {
@@ -56,23 +72,23 @@ a:link, a:visited {
  * Search-Feedback
  */
 
-#results-message{
-    margin:10px;
+#results-message {
+    margin: 10px;
     color: white;
 
     background: #A80026;
-    padding:10px 10px 10px 15px;
+    padding: 10px 10px 10px 15px;
     border-radius: 5px;
 }
 
-#results-message span:first-child{
-    font-size:14px;
-    font-weight:bold;
+#results-message span:first-child {
+    font-size: 14px;
+    font-weight: bold;
 }
 
-#results-message span{
-    font-size:14px;
-    padding-right:20px;
+#results-message span {
+    font-size: 14px;
+    padding-right: 20px;
 }
 
 /** Mobile **/
@@ -86,32 +102,32 @@ a:link, a:visited {
         width: 100%;
     }
 
-    .form-wrapper button{
-        display:none;
+    .form-wrapper button {
+        display: none;
     }
 }
 
 @media only screen and (max-width: 512px) {
-    #results .grid{
+    #results .grid {
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
-        width:100%;
-        height:auto;
-        margin:0px;
+        width: 100%;
+        height: auto;
+        margin: 0px;
     }
 
-    #results .grid img{
-        width:100%;
-        height:auto;
+    #results .grid img {
+        width: 100%;
+        height: auto;
     }
 
-    .form-wrapper{
-        padding:0;
+    .form-wrapper {
+        padding: 0;
     }
 
-    #container{
-        min-width:280px;
+    #container {
+        min-width: 280px;
     }
 }
 
