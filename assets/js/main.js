@@ -5,6 +5,7 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
   $scope.persons = null;
   $scope.itemsPerPage = 8;
   $scope.needPagination = false;
+  $scope.foundResults = true;
   document.querySelector(".form-wrapper input").focus();
 
   /**
@@ -13,8 +14,14 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
   var requestPeople = function (offset) {
     $http.post(url, {"data": $scope.query, "offset": offset}).
       success(function (data) {
-        $scope.persons = data.people;
+        if(data.count > 0){
+          $scope.foundResults = true;
+        }
+        else{
+          $scope.foundResults = false;
+        }
 
+        $scope.persons = data.people;
         $scope.totalItems = data.count;
         $scope.offset = data.offset;
         $scope.currentPage = Math.floor(data.offset / $scope.itemsPerPage)+1;
@@ -42,17 +49,24 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
       $location.search("q", $scope.query);
     }
 
-    if (String.toLowerCase($scope.query).indexOf("fhs") > -1 && $scope.query.length < 5) {
-      $scope.persons = null;
-      $scope.needPagination = false;
-      return;
-    } else if ($scope.query.length < 3) {
+    if(String.toLowerCase($scope.query).indexOf("fhs") > -1 && $scope.query.length >= 5
+      || $scope.query.length >= 3){
+      $scope.isQueryWithResults = true;
+      requestPeople(0);
+    }
+    else{
+      if($scope.query.length === 0){
+        $scope.isQueryWithResults = true;
+      }
+      else{
+        $scope.isQueryWithResults = false;
+      }
+
       $scope.persons = null;
       $scope.needPagination = false;
       return;
     }
 
-    requestPeople(0);
   };
 
   /**

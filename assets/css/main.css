@@ -25,20 +25,59 @@ html, body {
     width: 1024px;
 }
 
-header, footer{
+header, footer {
+    width: 100%;
+}
+
+header img {
+    margin: 10px;
+}
+
+footer {
+    color: #444;
+    text-align: center;
+    padding: 10px;
+}
+
+a:link, a:visited {
+    color: #444;
+}
+
+/**
+ * For bootstrap
+ */
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+.pagination{
+    float:right;
+    margin-right:10px;
+}
+
+#pagination-wrap{
     width:100%;
 }
 
-header img{
+/**
+ * Search-Feedback
+ */
+
+#results-message{
     margin:10px;
+    color: white;
+
+    background: #A80026;
+    padding:10px 10px 10px 15px;
+    border-radius: 5px;
 }
 
-footer{
-    color:#444;
-    text-align: center;
-    padding:10px;
+#results-message span:first-child{
+    font-size:14px;
+    font-weight:bold;
 }
 
-a:link, a:visited{
-    color:#444;
+#results-message span{
+    font-size:14px;
+    padding-right:20px;
 }
