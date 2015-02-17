@@ -1,1 +1,5 @@
 *.png
+.idea/
+config.json
+scrapper.js
+config.php

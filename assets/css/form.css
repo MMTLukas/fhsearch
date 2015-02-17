@@ -19,9 +19,9 @@
 }
 
 .form-wrapper input {
-    width: 894px;
-    height: 40px;
-    padding: 10px 10px 10px 10px;
+    width: 874px;
+    height: 20px;
+    padding: 10px 10px;
     float: left;
     font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
     border: 0;
@@ -29,10 +29,9 @@
     -moz-border-radius: 3px 0 0 3px;
     -webkit-border-radius: 3px 0 0 3px;
     border-radius: 3px 0 0 3px;
-
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
 }
 
 .form-wrapper input:focus {
@@ -64,6 +63,7 @@
 .form-wrapper button {
     overflow: visible;
     position: relative;
+    float: right;
     border: 0;
     padding: 0;
     cursor: pointer;
@@ -110,3 +110,4 @@
     border: 0;
     padding: 0;
 }
+>>>>>>> 0972df8043e5b379e09e9ef60b28b34df128fd93
