@@ -29,6 +29,9 @@
     -moz-border-radius: 3px 0 0 3px;
     -webkit-border-radius: 3px 0 0 3px;
     border-radius: 3px 0 0 3px;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
 }
 
 .form-wrapper input:focus {
@@ -69,7 +72,7 @@
     font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
     color: #fff;
     text-transform: uppercase;
-    background: #d83c3c;
+    background: #A80026;
     -moz-border-radius: 0 3px 3px 0;
     -webkit-border-radius: 0 3px 3px 0;
     border-radius: 0 3px 3px 0;
@@ -82,7 +85,7 @@
 
 .form-wrapper button:active,
 .form-wrapper button:focus {
-    background: #c42f2f;
+    background: #A80026;
 }
 
 .form-wrapper button:before {
@@ -90,7 +93,7 @@
     position: absolute;
     border-width: 8px 8px 8px 0;
     border-style: solid solid solid none;
-    border-color: transparent #d83c3c transparent;
+    border-color: transparent #A80026 transparent;
     top: 12px;
     left: -6px;
 }
