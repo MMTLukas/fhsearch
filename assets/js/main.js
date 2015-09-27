@@ -49,7 +49,7 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
       $location.search("q", $scope.query);
     }
 
-    if(String.toLowerCase($scope.query).indexOf("fhs") > -1 && $scope.query.length >= 5
+    if($scope.query.toLowerCase().indexOf("fhs") > -1 && $scope.query.length >= 5
       || $scope.query.length >= 3){
       $scope.isQueryWithResults = true;
       requestPeople(0);
