@@ -15,10 +15,10 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
         $http.post(url, {"data": $scope.query, "offset": offset})
             .success(function (data) {
                 if (data.count > 0) {
-                    $scope.foundResults = true;
+                    $scope.isQueryWithResults = true;
                 }
                 else {
-                    $scope.foundResults = false;
+                    $scope.isQueryWithResults = false;
                 }
 
                 $scope.persons = data.people;
@@ -46,12 +46,10 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
         if ($scope.query.length == 0) {
             $location.search("q", "");
         } else {
-            $location.search("q", $scope.query);
+            $location.search("q", String($scope.query));
         }
 
-        if ($scope.query.toLowerCase().indexOf("fhs") > -1 && $scope.query.length >= 5
-            || $scope.query.length >= 3) {
-            $scope.isQueryWithResults = true;
+        if ($scope.query.toLowerCase().indexOf("fhs") > -1 && $scope.query.length >= 5 || $scope.query.length >= 3) {
             requestPeople(0);
         }
         else {
@@ -64,9 +62,7 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
 
             $scope.persons = null;
             $scope.needPagination = false;
-            return;
         }
-
     };
 
     /**
