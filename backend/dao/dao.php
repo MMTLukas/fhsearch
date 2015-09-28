@@ -63,12 +63,15 @@
     $selectCount->bindParam(':fhsId', htmlentities($fhsId . "%"), PDO::PARAM_STR);
     $selectCount->execute();
 
+    $count = $selectCount->fetch(PDO::FETCH_ASSOC);
+    $count = $count["count"];
+
     if (!$result) {
       header("HTTP/1.0 500 Internal Server Error");
     } else {
       return array(
         "people" => $select->fetchAll(PDO::FETCH_ASSOC),
-        "count" => (int)$selectCount->fetch(PDO::FETCH_ASSOC)["count"],
+        "count" => $count,
         "offset" => $offset
       );
     }

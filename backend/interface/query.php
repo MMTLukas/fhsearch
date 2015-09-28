@@ -9,7 +9,7 @@
   if (isset($decoded["data"])) {
     $data = $decoded["data"];
     $offset = @$decoded["offset"] ? $decoded["offset"] : 0;
-    $results = [];
+    $results = array();
 
     if (stripos($data, "fhs") !== false && strlen($data) >= 6) {
       $results = getPeopleByFhs(strtolower($data), $offset);
