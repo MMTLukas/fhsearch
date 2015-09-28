@@ -4,7 +4,11 @@ html, body {
     padding: 0;
     margin: 0;
     font-size: 11px;
+<<<<<<< HEAD
     font-family: Verdana, Arial, sans-serif;
+=======
+    font-family: Verdana;
+>>>>>>> 25d5bf45da60f1b79bfdce68d61ab853b266d4eb
 }
 
 #container {
@@ -31,11 +35,14 @@ footer {
     padding: 10px;
 }
 
+<<<<<<< HEAD
 footer small{
   max-width: 400px;
   display:inline-block;
 }
 
+=======
+>>>>>>> 25d5bf45da60f1b79bfdce68d61ab853b266d4eb
 a:link, a:visited {
     color: #444;
 }
