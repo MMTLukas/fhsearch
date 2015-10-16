@@ -8,7 +8,7 @@
 
   if (isset($decoded["data"])) {
     $data = $decoded["data"];
-    $offset = @$decoded["offset"] ? $decoded["offset"] : 0;
+    $offset = $decoded["offset"];
     $results = array();
 
     if (stripos($data, "fhs") !== false && strlen($data) >= 6) {

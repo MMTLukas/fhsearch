@@ -56,7 +56,7 @@
     $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `department` FROM `people` WHERE `id` LIKE :fhsId ORDER BY `id` ASC LIMIT :limit OFFSET :offset");
     $select->bindParam(':fhsId', htmlentities($fhsId . "%"), PDO::PARAM_STR);
     $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
-    $select->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $select->bindParam(':offset', intval(htmlspecialchars($offset)), PDO::PARAM_INT);
     $result = $select->execute();
 
     $selectCount = $adapter->prepare("SELECT count(*) AS count FROM `people` WHERE `id` LIKE :fhsId");
@@ -86,15 +86,18 @@
     $amountQueryParts = count($queryExtended);
 
     if ($amountQueryParts == 1) {
+
+      $adapter->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
       $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `department` FROM `people` WHERE `lastname` LIKE :name OR `prename` LIKE :name OR SUBSTRING_INDEX(SUBSTRING_INDEX(`email`,'@',1), '.',-1) LIKE :name ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
       $select->bindParam(':name', htmlspecialchars("%" . $data . "%", ENT_QUOTES, "UTF-8"));
       $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
-      $select->bindParam(':offset', $offset, PDO::PARAM_INT);
+      $select->bindParam(':offset', intval(htmlspecialchars($offset)), PDO::PARAM_INT);
       $result = $select->execute();
 
       $selectCount = $adapter->prepare("SELECT count(*) AS count FROM `people` WHERE `lastname` LIKE :name OR `prename` LIKE :name OR SUBSTRING_INDEX(SUBSTRING_INDEX(`email`,'@',1), '.',-1) LIKE :name");
       $selectCount->bindParam(':name', htmlspecialchars("%" . $data . "%", ENT_QUOTES, "UTF-8"));
       $selectCount->execute();
+
     } else if ($amountQueryParts == 2) {
       $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `department` AS url FROM `people` WHERE `prename` LIKE :firstInput AND `lastname` LIKE :secondInput OR `prename` LIKE :secondInput AND `lastname` LIKE :firstInput OR `prename` LIKE :bothInputs  ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
 
@@ -102,7 +105,7 @@
       $select->bindParam(':secondInput', htmlspecialchars("%" . $queryExtended[1] . "%", ENT_QUOTES, "UTF-8"));
       $select->bindParam(':bothInputs', htmlspecialchars("%" . $queryExtended[0] . " " . $queryExtended[1] . "%", ENT_QUOTES, "UTF-8"));
       $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
-      $select->bindParam(':offset', $offset, PDO::PARAM_INT);
+      $select->bindParam(':offset', intval(htmlspecialchars($offset)), PDO::PARAM_INT);
 
       $result = $select->execute();
 
@@ -124,7 +127,7 @@
       $select->bindParam(':secondPossibilityLastname', htmlspecialchars("%" . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
       $select->bindParam(':secondPossibilityPrename', htmlspecialchars("%" . $secondInput . " " . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
       $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
-      $select->bindParam(':offset', $offset, PDO::PARAM_INT);
+      $select->bindParam(':offset', intval(htmlspecialchars($offset)), PDO::PARAM_INT);
 
       $result = $select->execute();
 
@@ -136,8 +139,8 @@
       $selectCount->execute();
     }
 
-      $count = $selectCount->fetch(PDO::FETCH_ASSOC);
-      $count = $count["count"];
+    $count = $selectCount->fetch(PDO::FETCH_ASSOC);
+    $count = $count["count"];
 
     if (!$result) {
       header("HTTP/1.0 500 Internal Server Error");

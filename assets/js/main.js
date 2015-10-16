@@ -11,26 +11,15 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
     /**
      * Get people and details from the server
      */
-    var requestPeople = function (offset) {
-        $http.post(url, {"data": $scope.query, "offset": offset})
-            .success(function (data) {
-                if (data.count > 0) {
-                    $scope.isQueryWithResults = true;
-                }
-                else {
-                    $scope.isQueryWithResults = false;
-                }
+    var requestPeople = function () {
 
+        $http.post(url, {"data": $scope.query, "offset": $scope.offset})
+            .success(function (data) {
                 $scope.persons = data.people;
                 $scope.totalItems = data.count;
                 $scope.offset = data.offset;
                 $scope.currentPage = Math.floor(data.offset / $scope.itemsPerPage) + 1;
-
-                if ($scope.totalItems > $scope.itemsPerPage) {
-                    $scope.needPagination = true;
-                } else {
-                    $scope.needPagination = false;
-                }
+                $scope.needPagination = $scope.totalItems > $scope.itemsPerPage ? true : false;
             })
             .error(function (data, status) {
                 $scope.data = data || "Request failed";
@@ -42,24 +31,20 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
     /**
      * Handle search input
      */
-    $scope.getPeople = function (offset) {
-        if ($scope.query.length == 0) {
-            $location.search("q", "");
-        } else {
-            $location.search("q", String($scope.query));
+    $scope.getPeople = function () {
+        $location.search("q", $scope.query);
+
+        // Reset offset and query
+        if (!$scope.query) {
+            $scope.offset = 0;
         }
+
+        $location.search("offset", $scope.offset)
 
         if ($scope.query.toLowerCase().indexOf("fhs") > -1 && $scope.query.length >= 5 || $scope.query.length >= 3) {
-            requestPeople(0);
+            requestPeople($scope.offset);
         }
         else {
-            if ($scope.query.length === 0) {
-                $scope.isQueryWithResults = true;
-            }
-            else {
-                $scope.isQueryWithResults = false;
-            }
-
             $scope.persons = null;
             $scope.needPagination = false;
         }
@@ -67,10 +52,12 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
 
     /**
      * Updating URL in browser
+     * @example: User comes with http://host/#?q=lukas&offset=40 to the site
+     *           now we extract the query and the offset and search for the peoples
      */
     if ($location.search()) {
-        var query = $location.search().q || "";
-        $scope.query = query;
+        $scope.query = $location.search().q || "";
+        $scope.offset = $location.search().offset || 0;
         $scope.getPeople();
     }
 
@@ -78,8 +65,10 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
      * Pagination
      */
     $scope.pageChanged = function () {
-        $log.log('Page changed to: ' + $scope.currentPage);
-        requestPeople($scope.itemsPerPage * $scope.currentPage - $scope.itemsPerPage)
+        $scope.offset = $scope.itemsPerPage * $scope.currentPage - $scope.itemsPerPage;
+
+        $location.search("offset", $scope.offset);
+        $scope.getPeople();
     };
 });
 
