@@ -47,6 +47,14 @@ a:link, a:visited {
 .pagination {
     float: right;
     margin-right: 10px;
+    color: #A80026;
+}
+
+.pagination > .active > a, .pagination > .active > span,
+.pagination > .active > a:hover, .pagination > .active > span:hover,
+.pagination > .active > a:focus, .pagination > .active > span:focus{
+    background-color: #A80026;
+    border-color: #A80026;
 }
 
 #pagination-wrap {
