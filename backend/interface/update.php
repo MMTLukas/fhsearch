@@ -7,4 +7,4 @@
   $count = count($decoded);
 
   $human = Human::fromDetails($decoded["id"], $decoded["email"], $decoded["url"]);
-  echo updateHuman($human);
+  echo updateHumanDetails($human);
