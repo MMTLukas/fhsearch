@@ -58,7 +58,8 @@ a:link, a:visited {
 }
 
 .pagination > li > a:hover, .pagination > li > span:hover,
-.pagination > li > a:focus, .pagination > li > span:focus{
+.pagination > li > a:focus, .pagination > li > span:focus,
+.pagination > li > a, .pagination > li > span{
     color: #A80026;
 }
 
