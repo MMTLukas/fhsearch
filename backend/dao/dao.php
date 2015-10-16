@@ -80,36 +80,36 @@
   function getPeopleByNameAndGroup($data, $offset)
   {
     global $DSN, $DB_USER, $DB_PASS, $LIMIT;
-    $adapter = new PDO($DSN, $DB_USER, $DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die(false);
+    $adapter = new PDO($DSN, $DB_USER, $DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')) or die(false);
 
     $queryExtended = explode(" ", $data);
     $amountQueryParts = count($queryExtended);
 
     if ($amountQueryParts == 1) {
       $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `department` FROM `people` WHERE `lastname` LIKE :name OR `prename` LIKE :name OR SUBSTRING_INDEX(SUBSTRING_INDEX(`email`,'@',1), '.',-1) LIKE :name ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
-      $select->bindParam(':name', htmlentities("%" . $data . "%"), PDO::PARAM_STR);
+      $select->bindParam(':name', htmlspecialchars("%" . $data . "%", ENT_QUOTES, "UTF-8"));
       $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
       $select->bindParam(':offset', $offset, PDO::PARAM_INT);
       $result = $select->execute();
 
       $selectCount = $adapter->prepare("SELECT count(*) AS count FROM `people` WHERE `lastname` LIKE :name OR `prename` LIKE :name OR SUBSTRING_INDEX(SUBSTRING_INDEX(`email`,'@',1), '.',-1) LIKE :name");
-      $selectCount->bindParam(':name', htmlentities("%" . $data . "%"), PDO::PARAM_STR);
+      $selectCount->bindParam(':name', htmlspecialchars("%" . $data . "%", ENT_QUOTES, "UTF-8"));
       $selectCount->execute();
     } else if ($amountQueryParts == 2) {
       $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `department` AS url FROM `people` WHERE `prename` LIKE :firstInput AND `lastname` LIKE :secondInput OR `prename` LIKE :secondInput AND `lastname` LIKE :firstInput OR `prename` LIKE :bothInputs  ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
 
-      $select->bindParam(':firstInput', htmlentities("%" . $queryExtended[0] . "%"), PDO::PARAM_STR);
-      $select->bindParam(':secondInput', htmlentities("%" . $queryExtended[1] . "%"), PDO::PARAM_STR);
-      $select->bindParam(':bothInputs', htmlentities("%" . $queryExtended[0] . " " . $queryExtended[1] . "%"), PDO::PARAM_STR);
+      $select->bindParam(':firstInput', htmlspecialchars("%" . $queryExtended[0] . "%", ENT_QUOTES, "UTF-8"));
+      $select->bindParam(':secondInput', htmlspecialchars("%" . $queryExtended[1] . "%", ENT_QUOTES, "UTF-8"));
+      $select->bindParam(':bothInputs', htmlspecialchars("%" . $queryExtended[0] . " " . $queryExtended[1] . "%", ENT_QUOTES, "UTF-8"));
       $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
       $select->bindParam(':offset', $offset, PDO::PARAM_INT);
 
       $result = $select->execute();
 
       $selectCount = $adapter->prepare("SELECT count(*) AS count FROM `people` WHERE `prename` LIKE :firstInput AND `lastname` LIKE :secondInput OR `prename` LIKE :secondInput AND `lastname` LIKE :firstInput OR `prename` LIKE :bothInputs");
-      $selectCount->bindParam(':firstInput', htmlentities("%" . $queryExtended[0] . "%"), PDO::PARAM_STR);
-      $selectCount->bindParam(':secondInput', htmlentities("%" . $queryExtended[1] . "%"), PDO::PARAM_STR);
-      $selectCount->bindParam(':bothInputs', htmlentities("%" . $queryExtended[0] . " " . $queryExtended[1] . "%"), PDO::PARAM_STR);
+      $selectCount->bindParam(':firstInput', htmlspecialchars("%" . $queryExtended[0] . "%", ENT_QUOTES, "UTF-8"));
+      $selectCount->bindParam(':secondInput', htmlspecialchars("%" . $queryExtended[1] . "%", ENT_QUOTES, "UTF-8"));
+      $selectCount->bindParam(':bothInputs', htmlspecialchars("%" . $queryExtended[0] . " " . $queryExtended[1] . "%", ENT_QUOTES, "UTF-8"));
       $selectCount->execute();
 
     } else if ($amountQueryParts == 3) {
@@ -119,20 +119,20 @@
       $secondInput = $queryExtended[1];
       $thirdInput = $queryExtended[2];
 
-      $select->bindParam(':firstPossibilityPrename', htmlentities("%" . $firstInput . " " . $secondInput . "%"), PDO::PARAM_STR);
-      $select->bindParam(':firstPossibilityLastname', htmlentities("%" . $thirdInput . "%"), PDO::PARAM_STR);
-      $select->bindParam(':secondPossibilityLastname', htmlentities("%" . $thirdInput . "%"), PDO::PARAM_STR);
-      $select->bindParam(':secondPossibilityPrename', htmlentities("%" . $secondInput . " " . $thirdInput . "%"), PDO::PARAM_STR);
+      $select->bindParam(':firstPossibilityPrename', htmlspecialchars("%" . $firstInput . " " . $secondInput . "%", ENT_QUOTES, "UTF-8"));
+      $select->bindParam(':firstPossibilityLastname', htmlspecialchars("%" . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
+      $select->bindParam(':secondPossibilityLastname', htmlspecialchars("%" . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
+      $select->bindParam(':secondPossibilityPrename', htmlspecialchars("%" . $secondInput . " " . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
       $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
       $select->bindParam(':offset', $offset, PDO::PARAM_INT);
 
       $result = $select->execute();
 
       $selectCount = $adapter->prepare("SELECT count(*) AS count FROM `people` WHERE `prename` LIKE :firstPossibilityPrename AND `lastname` LIKE :firstPossibilityLastname OR `prename` LIKE :secondPossibilityPrename AND `lastname` LIKE :secondPossibilityLastname");
-      $selectCount->bindParam(':firstPossibilityPrename', htmlentities("%" . $firstInput . " " . $secondInput . "%"), PDO::PARAM_STR);
-      $selectCount->bindParam(':firstPossibilityLastname', htmlentities("%" . $thirdInput . "%"), PDO::PARAM_STR);
-      $selectCount->bindParam(':secondPossibilityLastname', htmlentities("%" . $thirdInput . "%"), PDO::PARAM_STR);
-      $selectCount->bindParam(':secondPossibilityPrename', htmlentities("%" . $secondInput . " " . $thirdInput . "%"), PDO::PARAM_STR);
+      $selectCount->bindParam(':firstPossibilityPrename', htmlspecialchars("%" . $firstInput . " " . $secondInput . "%", ENT_QUOTES, "UTF-8"));
+      $selectCount->bindParam(':firstPossibilityLastname', htmlspecialchars("%" . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
+      $selectCount->bindParam(':secondPossibilityLastname', htmlspecialchars("%" . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
+      $selectCount->bindParam(':secondPossibilityPrename', htmlspecialchars("%" . $secondInput . " " . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
       $selectCount->execute();
     }
 
