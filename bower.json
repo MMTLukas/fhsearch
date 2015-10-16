@@ -28,7 +28,6 @@
     "angular-ui-router": "~0.2.15",
     "bootstrap": "~3.3.5",
     "angular-bootstrap": "~0.14.2",
-    "flat-ui": "~2.2.2",
     "jquery": "~2.1.4"
   }
 }
