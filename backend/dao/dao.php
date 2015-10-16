@@ -22,13 +22,13 @@ function createHuman(Human $human)
 
     if ($result["id"]) {
         return updateHumanOverview($human);
-    }
-    else{
+    } else {
         return insertHuman($human);
     }
 }
 
-function insertHuman(Human $human){
+function insertHuman(Human $human)
+{
     global $DSN, $DB_USER, $DB_PASS;
     $adapter = new PDO($DSN, $DB_USER, $DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die(false);
 
