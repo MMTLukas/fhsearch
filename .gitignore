@@ -7,3 +7,5 @@ pictures/
 pictures.zip
 npm_modules/
 bower_components/
+*.sql
+backend/db/fhs.sql
