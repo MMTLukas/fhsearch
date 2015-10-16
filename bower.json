@@ -1,0 +1,34 @@
+{
+  "name": "fhsearch",
+  "version": "0.3",
+  "homepage": "https://fhsearch.mediacube.at",
+  "authors": [
+    "Lukas Wanko <lwanko.mmt-m2014@fh-salzburg.ac.at>"
+  ],
+  "description": "Do you look for somebody at the fh salzburg? You only know her or his first name? You need her or his email? No problem!",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "fh",
+    "salzburg",
+    "fh-salzburg",
+    "studenten",
+    "mitarbeiter"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-ui-router": "~0.2.15",
+    "bootstrap": "~3.3.5",
+    "angular-bootstrap": "~0.14.2",
+    "flat-ui": "~2.2.2",
+    "jquery": "~2.1.4"
+  }
+}

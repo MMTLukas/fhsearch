@@ -3,25 +3,16 @@ html, body {
     height: 100%;
     padding: 0;
     margin: 0;
-    font-size: 11px;
-<<<<<<< HEAD
+    font-size: 12px;
     font-family: Verdana, Arial, sans-serif;
-=======
-    font-family: Verdana;
->>>>>>> 25d5bf45da60f1b79bfdce68d61ab853b266d4eb
 }
 
 #container {
-    display: block;
     margin: 0 auto;
-    padding:10px;
+    padding: 10px;
 }
 
-#container #results {
-    width: 100%;
-}
-
-header, footer {
+#container #results, #container #search, header, footer {
     width: 100%;
 }
 
@@ -33,16 +24,15 @@ footer {
     color: #444;
     text-align: center;
     padding: 10px;
+    background: none;
 }
 
-<<<<<<< HEAD
 footer small{
-  max-width: 400px;
-  display:inline-block;
+    max-width: 400px;
+    display:inline-block;
+    line-height: 1.5;
 }
 
-=======
->>>>>>> 25d5bf45da60f1b79bfdce68d61ab853b266d4eb
 a:link, a:visited {
     color: #444;
 }

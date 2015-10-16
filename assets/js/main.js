@@ -1,4 +1,4 @@
-var App = angular.module("fhs-search", ["ngRoute", "ui.bootstrap"]);
+var app = angular.module("fhs-search", ["ui.router", "ui.bootstrap"]);
 
 angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $location, $log) {
     var url = "backend/interface/query.php";
@@ -6,7 +6,7 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
     $scope.itemsPerPage = 8;
     $scope.needPagination = false;
     $scope.foundResults = true;
-    document.querySelector(".form-wrapper input").focus();
+    document.querySelector("input").focus();
 
     /**
      * Get people and details from the server
@@ -83,8 +83,10 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
     };
 });
 
-App.config(['$routeProvider',
-    function ($routeProvider) {
-        $routeProvider.when('*', {reloadOnSearch: false, controller: "SearchCtrl"});
-    }
-]);
+app.config(function ($stateProvider) {
+    $stateProvider.state('*', {
+        reloadOnSearch: false,
+        controller: "SearchCtrl"
+    });
+});
+
