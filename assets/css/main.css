@@ -57,6 +57,11 @@ a:link, a:visited {
     border-color: #A80026;
 }
 
+.pagination > li > a:hover, .pagination > li > span:hover,
+.pagination > li > a:focus, .pagination > li > span:focus{
+    color: #A80026;
+}
+
 #pagination-wrap {
     width: 100%;
 }
