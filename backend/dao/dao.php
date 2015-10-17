@@ -12,7 +12,7 @@ function createHuman(Human $human)
     global $DSN, $DB_USER, $DB_PASS;
     $adapter = new PDO($DSN, $DB_USER, $DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die(false);
 
-    //Check if ID already exists, so we have only to make a update
+    //Check if ID already exists, so we have only the make a update
     //Otherwise we want to insert the new human
     $select = $adapter->prepare("SELECT id FROM people WHERE id = :id");
     $result = $select->execute(array(
