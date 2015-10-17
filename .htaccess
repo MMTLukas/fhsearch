@@ -1,0 +1,5 @@
+AuthName "FH-Login"
+AuthType Basic
+AuthBasicProvider ldap
+AuthLDAPURL "ldap://denise.core.fh-salzburg.ac.at:389/o=fhs?uid?sub"
+Require valid-user

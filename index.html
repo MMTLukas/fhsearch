@@ -25,7 +25,7 @@
                        ng-model="query">
                 <button type="submit" ng-click="getPeople()">Suchen</button>
             </div>
-            <div ng-hide="isQueryWithResults" id="results-message">
+            <div ng-hide="totalItems || !query" id="results-message">
                 <span>Suchergebnisse: 0</span>
                 <span>Bitte spezifizieren oder vereinfachen Sie Ihre Suche!</span>
                 <span>Mindestlänge: 3 Zeichen oder "fhs" + 3 Zeichen</span>

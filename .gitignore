@@ -7,3 +7,4 @@ pictures/
 pictures.zip
 npm_modules/
 bower_components/
+*.sql

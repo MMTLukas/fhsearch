@@ -8,6 +8,6 @@
 
   for ($i = 0; $i < $count; $i++) {
     $human = Human::fromOverview($decoded[$i]["prename"], $decoded[$i]["lastname"], $decoded[$i]["department"], $decoded[$i]["type"], $decoded[$i]["id"]);
-    echo insertHuman($human);
+    echo createHuman($human);
   }
 
