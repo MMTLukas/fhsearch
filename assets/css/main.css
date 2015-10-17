@@ -21,6 +21,7 @@ header img {
 }
 
 footer {
+    clear: both;
     color: #444;
     text-align: center;
     padding: 10px;
@@ -63,8 +64,36 @@ a:link, a:visited {
     color: #A80026;
 }
 
-#pagination-wrap {
+#pre-footer{
     width: 100%;
+    float:left;
+    margin-bottom:10px;
+}
+
+#overall-count{
+    float:left;
+    height:51px;
+    width: 20%;
+    text-align: center;
+    color: #333;
+    padding: 19px 0 0 10px;
+}
+
+#overall-count span{
+    float:left;
+    display:inline-block;
+    width: 80%;
+    clear:both;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+    height:31px;
+    line-height:31px;
+    vertical-align: middle;
+}
+
+#pagination-wrap {
+    float:left;
+    width: 80%;
 }
 
 /**
