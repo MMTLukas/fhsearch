@@ -176,12 +176,11 @@ table {
 .grid {
     position: relative;
     margin: 0 auto;
-    width: 236px;
+    width: 231px;
     height: 318px;
     list-style: none;
     text-align: center;
     float: left;
-    margin: 10px;
 }
 
 /* Common style */
