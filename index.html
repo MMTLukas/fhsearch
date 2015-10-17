@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="fhs-search">
+<html ng-app="fhs-search" class="ng-cloak">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -33,21 +33,23 @@
         </div>
     </header>
 
-    <div id="results" ng-repeat="person in persons">
-        <div class="result grid">
-            <figure class="effect-apollo">
-                <img src="scrapper/pictures/{{person.id}}.png" alt="{{lastname}}"/>
-                <figcaption>
-                    <h2>{{person.prename}} <span>{{person.lastname}}</span></h2>
+    <div id="people">
+        <div class="person" ng-repeat="person in persons">
+            <div class="result grid">
+                <figure class="effect-apollo">
+                    <img src="scrapper/pictures/{{person.id}}.png" alt="{{lastname}}"/>
+                    <figcaption>
+                        <h2>{{person.prename}} <span>{{person.lastname}}</span></h2>
 
-                    <p>
-                        {{person.department}}<br><br>
-                        {{person.id}}<br><br>
-                        {{person.email}}
-                    </p>
-                    <a href="#" ng-click="openMail(person.email)">Send an E-Mail</a>
-                </figcaption>
-            </figure>
+                        <p>
+                            {{person.department}}<br><br>
+                            {{person.id}}<br><br>
+                            {{person.email}}
+                        </p>
+                        <a href="#" ng-click="openMail(person.email)">Send an E-Mail</a>
+                    </figcaption>
+                </figure>
+            </div>
         </div>
     </div>
     <br style="clear: both;"/>
@@ -65,7 +67,7 @@
     </div>
 
     <footer>
-        FHSearch | Version 0.2 Beta | ©® <a href="mailto:lwanko.mmt-m2014@fh-salzburg.ac.at">Wanko Lukas</a> |
+        FHSearch | Version 0.3 | ©® <a href="mailto:lwanko.mmt-m2014@fh-salzburg.ac.at">Wanko Lukas</a> |
         MultiMediaTechnology | FH-Salzburg | 2015<br><br>
         <small>Der Entwickler dieser Seite weist darauf hin, dass durch diese Seite keine persönlichen Daten über den
             Rahmen der FHSYS-Personensuche der FH-Salzburg hinaus weitergegeben werden.
