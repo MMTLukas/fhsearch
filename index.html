@@ -45,18 +45,23 @@
                         {{person.id}}<br><br>
                         {{person.email}}
                     </p>
-                    <a href="mailto:{{person.email}}">Send an E-Mail</a>
+                    <a href="#" ng-click="openMail(person.email)">Send an E-Mail</a>
                 </figcaption>
             </figure>
         </div>
     </div>
     <br style="clear: both;"/>
 
-    <div id="pagination-wrap">
-        <pagination boundary-links="true" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage"
-                    ng-change="pageChanged()" ng-show="needPagination" class="pagination-sm"
-                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-        <br style="clear: both;"/>
+    <div id="pre-footer" ng-show="totalItems">
+        <div id="overall-count"><span>Gesamt: {{totalItems}}</span></div>
+        <div id="pagination-wrap">
+            <pagination boundary-links="true" total-items="totalItems" items-per-page="itemsPerPage"
+                        ng-model="currentPage"
+                        ng-change="pageChanged()" ng-show="needPagination" class="pagination-sm"
+                        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
+                        last-text="&raquo;"></pagination>
+            <br style="clear: both;"/>
+        </div>
     </div>
 
     <footer>
@@ -68,7 +73,8 @@
     </footer>
 
     <script type="text/javascript" rel="script" src="bower_components/angular/angular.js"></script>
-    <script type="text/javascript" rel="script" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" rel="script"
+            src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript" rel="script" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" rel="script" src="assets/js/main.js"></script>
 
