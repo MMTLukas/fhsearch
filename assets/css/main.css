@@ -22,7 +22,7 @@ html, body {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 25%;
-    float:left;
+    float: left;
     padding: 10px;
 }
 
@@ -137,15 +137,15 @@ a:link, a:visited {
         width: 100%;
     }
 
-    #people .person{
+    #people .person {
         width: 250px;
     }
 
-    #people .person .grid{
+    #people .person .grid {
         width: 100%;
     }
 
-    .form-wrapper{
+    .form-wrapper {
         padding-right: 110px;
     }
 
@@ -163,7 +163,6 @@ a:link, a:visited {
 
 @media only screen and (max-width: 512px) {
 
-
     #people .person {
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
@@ -173,7 +172,7 @@ a:link, a:visited {
         margin: 0px;
     }
 
-    #people .person .grid{
+    #people .person .grid {
         width: 100%;
         height: auto;
     }
@@ -183,15 +182,15 @@ a:link, a:visited {
         height: auto;
     }
 
-    #people .grid figure{
+    #people .grid figure {
         margin: 0px;
     }
 
-    #people .grid figure h2{
+    #people .grid figure h2 {
         font-size: 37px;
     }
 
-    #people .grid figure p{
+    #people .grid figure p {
         font-size: 22px;
     }
 
@@ -211,15 +210,15 @@ a:link, a:visited {
         border-radius: 3px;
     }
 
-    #pagination-wrap{
+    #pagination-wrap {
         width: 55%;
     }
 
-    #overall-count{
+    #overall-count {
         width: 45%;
     }
 
-    #overall-count span{
+    #overall-count span {
         width: auto;
         padding: 0px 10px;
     }

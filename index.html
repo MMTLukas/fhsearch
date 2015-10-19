@@ -21,9 +21,9 @@
             <div class="form-wrapper">
                 <input type="text"
                        placeholder="Name, FHS-Nummer oder Jahrgang hier eingeben... z.B. Max Mustermann, fhs12345, ITS, MMT-B, MMA-M2014"
-                       ng-change="getPeople()"
+                       ng-change="initSearch()"
                        ng-model="query">
-                <button type="submit" ng-click="getPeople()">Suchen</button>
+                <button type="submit" ng-click="initSearch()">Suchen</button>
             </div>
             <div ng-hide="totalItems || !query" id="results-message">
                 <span>Suchergebnisse: 0</span>
@@ -42,9 +42,9 @@
                         <h2>{{person.prename}} <span>{{person.lastname}}</span></h2>
 
                         <p>
-                            {{person.department}}<br><br>
+                            <span class="department" ng-show="person.department != 'k.A.'">{{person.department}}<br><br></span>
                             {{person.id}}<br><br>
-                            {{person.email}}
+                            <span class="mail">{{person.email}}</span>
                         </p>
                         <a href="#" ng-click="openMail(person.email)">Send an E-Mail</a>
                     </figcaption>

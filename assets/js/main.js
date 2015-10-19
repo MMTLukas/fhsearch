@@ -30,7 +30,7 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
     /**
      * Get people and details from the server
      */
-    var requestPeople = function () {
+    var getPeople = function () {
         $http.post(url, {"data": $scope.query, "offset": $scope.offset})
             .success(function (data) {
                 $scope.persons = data.people;
@@ -49,18 +49,13 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
     /**
      * Handle search input
      */
-    $scope.getPeople = function () {
+    $scope.initSearch = function () {
         $location.search("q", $scope.query);
-
-        // Reset offset and query
-        if (!$scope.query) {
-            $scope.offset = 0;
-        }
-
-        $location.search("offset", $scope.offset)
+        $scope.offset = 0;
+        $location.search("offset", $scope.offset);
 
         if ($scope.query.toLowerCase().indexOf("fhs") > -1 && $scope.query.length >= 5 || $scope.query.length >= 3) {
-            requestPeople($scope.offset);
+            getPeople($scope.offset);
         }
         else {
             $scope.persons = null;
@@ -77,7 +72,6 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
     if ($location.search()) {
         $scope.query = $location.search().q || "";
         $scope.offset = $location.search().offset || 0;
-        $scope.getPeople();
     }
 
     /**
@@ -85,9 +79,8 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
      */
     $scope.pageChanged = function () {
         $scope.offset = $scope.itemsPerPage * $scope.currentPage - $scope.itemsPerPage;
-
         $location.search("offset", $scope.offset);
-        $scope.getPeople();
+        getPeople($scope.offset);
     };
 });
 
