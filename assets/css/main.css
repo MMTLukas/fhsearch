@@ -38,6 +38,10 @@ footer {
     background: none;
 }
 
+footer .issue{
+    font-weight: bold;
+}
+
 footer small {
     max-width: 400px;
     display: inline-block;
