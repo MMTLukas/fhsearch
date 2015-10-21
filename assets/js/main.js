@@ -72,6 +72,7 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
     if ($location.search()) {
         $scope.query = $location.search().q || "";
         $scope.offset = $location.search().offset || 0;
+        $scope.initSearch();
     }
 
     /**
