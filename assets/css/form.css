@@ -82,7 +82,7 @@
 }
 
 .form-wrapper button:hover {
-    background: #e54040;
+    background: #C54040;
 }
 
 .form-wrapper button:active,
@@ -101,7 +101,7 @@
 }
 
 .form-wrapper button:hover:before {
-    border-right-color: #e54040;
+    border-right-color: #C54040;
 }
 
 .form-wrapper button:focus:before {

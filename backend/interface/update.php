@@ -4,7 +4,6 @@
   require "../dao/dao.php";
 
   $decoded = json_decode($_POST["details"], true);
-  $count = count($decoded);
 
-  $human = Human::fromDetails($decoded["id"], $decoded["email"], $decoded["url"]);
+  $human = Human::fromDetails($decoded["id"], $decoded["email"], $decoded["url"], $decoded["phone"], $decoded["mobile"], $decoded["room"]);
   echo updateHumanDetails($human);

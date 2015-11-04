@@ -16,7 +16,7 @@ function createHuman(Human $human)
     //Otherwise we want to insert the new human
     $select = $adapter->prepare("SELECT id FROM people WHERE id = :id");
     $result = $select->execute(array(
-        ":id" => $human->getId()
+        ":id" => htmlspecialchars($human->getId())
     ));
     $result = $select->fetch(PDO::FETCH_ASSOC);
 
@@ -34,11 +34,11 @@ function insertHuman(Human $human)
 
     $insert = $adapter->prepare("INSERT INTO people (prename, lastname, department, type, id) VALUES (:prename, :lastname, :department, :type, :id)");
     $result = $insert->execute(array(
-        ":prename" => $human->getPrename(),
-        ":lastname" => $human->getLastname(),
-        ":department" => $human->getDepartment(),
-        ":type" => $human->getType(),
-        ":id" => $human->getId()
+        ":prename" => htmlspecialchars($human->getPrename()),
+        ":lastname" => htmlspecialchars($human->getLastname()),
+        ":department" => htmlspecialchars($human->getDepartment()),
+        ":type" => htmlspecialchars($human->getType()),
+        ":id" => htmlspecialchars($human->getId())
     ));
 
     if (!$result) {
@@ -55,11 +55,11 @@ function updateHumanOverview(Human $human)
 
     $update = $adapter->prepare("UPDATE people SET prename = :prename, lastname = :lastname, department = :department, type = :type WHERE id = :id");
     $result = $update->execute(array(
-        ":prename" => $human->getPrename(),
-        ":lastname" => $human->getLastname(),
-        ":department" => $human->getDepartment(),
-        ":type" => $human->getType(),
-        ":id" => $human->getId()
+        ":prename" => htmlspecialchars($human->getPrename()),
+        ":lastname" => htmlspecialchars($human->getLastname()),
+        ":department" => htmlspecialchars($human->getDepartment()),
+        ":type" => htmlspecialchars($human->getType()),
+        ":id" => htmlspecialchars($human->getId())
     ));
 
     if (!$result) {
@@ -74,11 +74,32 @@ function updateHumanDetails(Human $human)
     global $DSN, $DB_USER, $DB_PASS;
     $adapter = new PDO($DSN, $DB_USER, $DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die(false);
 
-    $update = $adapter->prepare("UPDATE people SET pictureUrlFhs = :pictureUrlFhs, email = :email WHERE id = :id");
+    $pictureURLFHS = htmlspecialchars($human->getPictureUrlFhs());
+    $pictureURLFHS = $pictureURLFHS == "" ? null : $pictureURLFHS;
+
+    $email = htmlspecialchars($human->getEmail());
+    $email = $email == "" ? null : $email;
+
+    $id = htmlspecialchars($human->getId());
+    $id = $id == "" ? null : $id;
+
+    $phone = htmlspecialchars($human->getPhone());
+    $phone = $phone == "" ? null : $phone;
+
+    $mobile = htmlspecialchars($human->getMobile());
+    $mobile = $mobile == "" ? null : $mobile;
+
+    $room = htmlspecialchars($human->getRoom());
+    $room = $room == "" ? null : $room;
+
+    $update = $adapter->prepare("UPDATE people SET pictureUrlFhs = :pictureUrlFhs, email = :email, mobile = :mobile, phone = :phone, room = :room WHERE id = :id");
     $result = $update->execute(array(
-        ":pictureUrlFhs" => $human->getPictureUrlFhs() == "" ? null : $human->getPictureUrlFhs(),
-        ":email" => $human->getEmail() == "" ? null : $human->getEmail(),
-        ":id" => $human->getId()
+        ":pictureUrlFhs" => $pictureURLFHS,
+        ":email" => $email,
+        ":id" => $id,
+        ":phone" => $phone,
+        ":mobile" => $mobile,
+        ":room" => $room
     ));
 
     if (!$result) {
@@ -93,7 +114,7 @@ function getPeopleByFhs($fhsId, $offset)
     global $DSN, $DB_USER, $DB_PASS, $LIMIT;
     $adapter = new PDO($DSN, $DB_USER, $DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die(false);
 
-    $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `department` FROM `people` WHERE `id` LIKE :fhsId ORDER BY `id` ASC LIMIT :limit OFFSET :offset");
+    $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `type`, `department`, `mobile`, `phone`, `room` FROM `people` WHERE `id` LIKE :fhsId ORDER BY `id` ASC LIMIT :limit OFFSET :offset");
     $select->bindParam(':fhsId', htmlentities($fhsId . "%"), PDO::PARAM_STR);
     $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
     $select->bindParam(':offset', intval(htmlspecialchars($offset)), PDO::PARAM_INT);
@@ -128,7 +149,7 @@ function getPeopleByNameAndGroup($data, $offset)
     if ($amountQueryParts == 1) {
 
         $adapter->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-        $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `department` FROM `people` WHERE `lastname` LIKE :name OR `prename` LIKE :name OR SUBSTRING_INDEX(SUBSTRING_INDEX(`email`,'@',1), '.',-1) LIKE :name ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
+        $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `type`, `department`, `mobile`, `phone`, `room` FROM `people` WHERE `lastname` LIKE :name OR `prename` LIKE :name OR SUBSTRING_INDEX(SUBSTRING_INDEX(`email`,'@',1), '.',-1) LIKE :name ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
         $select->bindParam(':name', htmlspecialchars("%" . $data . "%", ENT_QUOTES, "UTF-8"));
         $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
         $select->bindParam(':offset', intval(htmlspecialchars($offset)), PDO::PARAM_INT);
@@ -139,7 +160,7 @@ function getPeopleByNameAndGroup($data, $offset)
         $selectCount->execute();
 
     } else if ($amountQueryParts == 2) {
-        $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `department` AS url FROM `people` WHERE `prename` LIKE :firstInput AND `lastname` LIKE :secondInput OR `prename` LIKE :secondInput AND `lastname` LIKE :firstInput OR `prename` LIKE :bothInputs  ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
+        $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `type`, `department`, `mobile`, `phone`, `room` FROM `people` WHERE `prename` LIKE :firstInput AND `lastname` LIKE :secondInput OR `prename` LIKE :secondInput AND `lastname` LIKE :firstInput OR `prename` LIKE :bothInputs  ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
 
         $select->bindParam(':firstInput', htmlspecialchars("%" . $queryExtended[0] . "%", ENT_QUOTES, "UTF-8"));
         $select->bindParam(':secondInput', htmlspecialchars("%" . $queryExtended[1] . "%", ENT_QUOTES, "UTF-8"));
@@ -156,7 +177,7 @@ function getPeopleByNameAndGroup($data, $offset)
         $selectCount->execute();
 
     } else if ($amountQueryParts == 3) {
-        $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `department` AS url FROM `people` WHERE `prename` LIKE :firstPossibilityPrename AND `lastname` LIKE :firstPossibilityLastname OR `prename` LIKE :secondPossibilityPrename AND `lastname` LIKE :secondPossibilityLastname ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
+        $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `type`, `department`, `mobile`, `phone`, `room` FROM `people` WHERE `prename` LIKE :firstPossibilityPrename AND `lastname` LIKE :firstPossibilityLastname OR `prename` LIKE :secondPossibilityPrename AND `lastname` LIKE :secondPossibilityLastname ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
 
         $firstInput = $queryExtended[0];
         $secondInput = $queryExtended[1];
@@ -192,7 +213,6 @@ function getPeopleByNameAndGroup($data, $offset)
         );
     }
 }
-
 
 /** Error-Analysis
  * $adapter->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );

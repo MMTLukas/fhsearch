@@ -192,7 +192,6 @@ table {
     width: 100%;
     background: #3085a3;
     text-align: center;
-    cursor: pointer;
 }
 
 .grid figure img {
@@ -210,8 +209,23 @@ table {
     backface-visibility: hidden;
 }
 
-.grid figure figcaption .mail, .grid figure figcaption .department{
-    word-break: break-all;
+.grid figure figcaption .item {
+    background: rgba(168, 0, 38, 0.5);
+    margin: 1px;
+    padding: 5px;
+    color: white;
+}
+
+.grid figure figcaption a:link,
+.grid figure figcaption a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.grid figure figcaption a:hover,
+.grid figure figcaption a:active,
+.grid figure figcaption a:focus {
+    color: #dcd7d7;
 }
 
 .grid figure figcaption::before,
@@ -240,7 +254,7 @@ table {
 .grid figure h2 {
     word-spacing: -0.15em;
     font-weight: 300;
-    padding: 1em;
+    padding: 20px;
 }
 
 .grid figure h2 span {
@@ -276,10 +290,10 @@ figure.effect-apollo img {
 figure.effect-apollo figcaption::before {
     padding: 3em;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -50px;
+    left: -50px;
+    width: 150%;
+    height: 150%;
     background: rgba(255, 255, 255, 0.5);
     content: '';
     -webkit-transition: -webkit-transform 0.6s;
@@ -309,18 +323,18 @@ figure.effect-apollo h2 {
     text-align: left;
 }
 
-figure.effect-apollo:hover img, figure.effect-apollo:active img{
+figure.effect-apollo:hover img, figure.effect-apollo:active img {
     opacity: 0.6;
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
 }
 
-figure.effect-apollo:hover figcaption::before, figure.effect-apollo:active figcaption::before  {
+figure.effect-apollo:hover figcaption::before, figure.effect-apollo:active figcaption::before {
     -webkit-transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 45deg) translate3d(0, 100%, 0);
     transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 45deg) translate3d(0, 100%, 0);
 }
 
-figure.effect-apollo:hover p, figure.effect-apollo:active p{
+figure.effect-apollo:hover p, figure.effect-apollo:active p {
     opacity: 1;
     -webkit-transition-delay: 0.1s;
     transition-delay: 0.1s;

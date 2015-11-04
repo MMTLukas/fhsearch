@@ -10,6 +10,9 @@ class Human
 {
     protected $prename;
     protected $lastname;
+    protected $mobile;
+    protected $phone;
+    protected $room;
     protected $department;
     protected $type;
     protected $id;
@@ -29,12 +32,15 @@ class Human
         return $human;
     }
 
-    public static function fromDetails($id, $email, $pictureUrlFhs) {
+    public static function fromDetails($id, $email, $pictureUrlFhs, $phone, $mobile, $room) {
         $human = new self();
 
         $human->id = $id;
         $human->email = $email;
         $human->pictureUrlFhs = $pictureUrlFhs;
+        $human->phone = $phone;
+        $human->mobile = $mobile;
+        $human->room = $room;
 
         return $human;
     }
@@ -118,6 +124,36 @@ class Human
     public function setPrename($value)
     {
         $this->prename = $value;
+    }
+
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    public function setPhone($value)
+    {
+        $this->phone = $value;
+    }
+
+    public function getMobile()
+    {
+        return $this->mobile;
+    }
+
+    public function setMobile($value)
+    {
+        $this->mobile = $value;
+    }
+
+    public function getRoom()
+    {
+        return $this->room;
+    }
+
+    public function setRoom($value)
+    {
+        $this->room = $value;
     }
 
 }
