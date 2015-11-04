@@ -1,6 +1,6 @@
-var app = angular.module("fhs-search", ["ui.router", "ui.bootstrap"]);
+var app = angular.module("fhs-search", ["ui.router", "ui.bootstrap", "ngSanitize"]);
 
-angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $location, $log) {
+angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $location) {
     var url = "backend/interface/query.php";
     $scope.persons = null;
     $scope.itemsPerPage = 8;

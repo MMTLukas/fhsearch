@@ -40,8 +40,7 @@
                     <img src="pictures/{{person.id}}.png" alt="{{person.lastname}}"/>
                     <figcaption>
                         <div>
-                            <div class="item department" ng-show="person.department != 'k.A.'">{{person.department}}
-                            </div>
+                            <div class="item department" ng-show="person.department != 'k.A.'" ng-bind-html="person.department"></div>
                             <div class="item type" ng-hide="person.department != 'k.A.' || !person.type">
                                 {{person.type}}
                             </div>
@@ -89,6 +88,7 @@
     <script type="text/javascript" rel="script"
             src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript" rel="script" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" rel="script" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script type="text/javascript" rel="script" src="assets/js/main.js"></script>
 
     <!-- Google Analytics -->
