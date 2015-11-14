@@ -109,20 +109,24 @@ function updateHumanDetails(Human $human)
     }
 }
 
-function getPeopleByFhs($fhsId, $offset)
+function getPeople($data, $offset)
 {
     global $DSN, $DB_USER, $DB_PASS, $LIMIT;
     $adapter = new PDO($DSN, $DB_USER, $DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die(false);
 
-    $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `type`, `department`, `mobile`, `phone`, `room` FROM `people` WHERE `id` LIKE :fhsId ORDER BY `id` ASC LIMIT :limit OFFSET :offset");
-    $select->bindParam(':fhsId', htmlentities($fhsId . "%"), PDO::PARAM_STR);
+    $data = "+" . $data;
+    $data = str_replace(" ", "* +", $data);
+    $data = $data + "*";
+
+    $select = $adapter->prepare("SELECT * FROM people WHERE MATCH (search) AGAINST (:data IN BOOLEAN MODE) LIMIT :limit OFFSET :offset");
+    $select->bindParam(':data', htmlspecialchars($data, ENT_QUOTES, "UTF-8"));
     $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
     $select->bindParam(':offset', intval(htmlspecialchars($offset)), PDO::PARAM_INT);
     $result = $select->execute();
 
-    $selectCount = $adapter->prepare("SELECT count(*) AS count FROM `people` WHERE `id` LIKE :fhsId");
-    $selectCount->bindParam(':fhsId', htmlentities($fhsId . "%"), PDO::PARAM_STR);
-    $selectCount->execute();
+    $selectCount = $adapter->prepare("SELECT count(*) AS count FROM people WHERE MATCH (search) AGAINST (:data IN BOOLEAN MODE)");
+    $selectCount->bindParam(':data', htmlspecialchars($data, ENT_QUOTES, "UTF-8"));
+    $count = $selectCount->execute();
 
     $count = $selectCount->fetch(PDO::FETCH_ASSOC);
     $count = $count["count"];
@@ -130,87 +134,60 @@ function getPeopleByFhs($fhsId, $offset)
     if (!$result) {
         header("HTTP/1.0 500 Internal Server Error");
     } else {
+
+        $rows = array();
+        foreach ($select as $row) {
+            $rows[] = array(
+                "lastname" => htmlspecialchars_decode($row['lastname']),
+                "prename" => htmlspecialchars_decode($row['prename']),
+                "email" => $row['email'],
+                "id" => $row['id'],
+                "department" => htmlspecialchars_decode($row['department']),
+                "phone" => $row['phone'],
+                "mobile" => $row['mobile'],
+                "room" => $row['room'],
+                "type" => $row['type']
+            );
+        }
+
         return array(
-            "people" => $select->fetchAll(PDO::FETCH_ASSOC),
+            "people" => $rows,
             "count" => $count,
             "offset" => $offset
         );
     }
 }
 
-function getPeopleByNameAndGroup($data, $offset)
+function getStatistic()
 {
     global $DSN, $DB_USER, $DB_PASS, $LIMIT;
-    $adapter = new PDO($DSN, $DB_USER, $DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')) or die(false);
+    $adapter = new PDO($DSN, $DB_USER, $DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die(false);
 
-    $queryExtended = explode(" ", $data);
-    $amountQueryParts = count($queryExtended);
+    $statistic = [];
+    $years = array("1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015");
 
-    if ($amountQueryParts == 1) {
-
-        $adapter->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-        $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `type`, `department`, `mobile`, `phone`, `room` FROM `people` WHERE `lastname` LIKE :name OR `prename` LIKE :name OR SUBSTRING_INDEX(SUBSTRING_INDEX(`email`,'@',1), '.',-1) LIKE :name ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
-        $select->bindParam(':name', htmlspecialchars("%" . $data . "%", ENT_QUOTES, "UTF-8"));
-        $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
-        $select->bindParam(':offset', intval(htmlspecialchars($offset)), PDO::PARAM_INT);
-        $result = $select->execute();
-
-        $selectCount = $adapter->prepare("SELECT count(*) AS count FROM `people` WHERE `lastname` LIKE :name OR `prename` LIKE :name OR SUBSTRING_INDEX(SUBSTRING_INDEX(`email`,'@',1), '.',-1) LIKE :name");
-        $selectCount->bindParam(':name', htmlspecialchars("%" . $data . "%", ENT_QUOTES, "UTF-8"));
-        $selectCount->execute();
-
-    } else if ($amountQueryParts == 2) {
-        $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `type`, `department`, `mobile`, `phone`, `room` FROM `people` WHERE `prename` LIKE :firstInput AND `lastname` LIKE :secondInput OR `prename` LIKE :secondInput AND `lastname` LIKE :firstInput OR `prename` LIKE :bothInputs  ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
-
-        $select->bindParam(':firstInput', htmlspecialchars("%" . $queryExtended[0] . "%", ENT_QUOTES, "UTF-8"));
-        $select->bindParam(':secondInput', htmlspecialchars("%" . $queryExtended[1] . "%", ENT_QUOTES, "UTF-8"));
-        $select->bindParam(':bothInputs', htmlspecialchars("%" . $queryExtended[0] . " " . $queryExtended[1] . "%", ENT_QUOTES, "UTF-8"));
-        $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
-        $select->bindParam(':offset', intval(htmlspecialchars($offset)), PDO::PARAM_INT);
-
-        $result = $select->execute();
-
-        $selectCount = $adapter->prepare("SELECT count(*) AS count FROM `people` WHERE `prename` LIKE :firstInput AND `lastname` LIKE :secondInput OR `prename` LIKE :secondInput AND `lastname` LIKE :firstInput OR `prename` LIKE :bothInputs");
-        $selectCount->bindParam(':firstInput', htmlspecialchars("%" . $queryExtended[0] . "%", ENT_QUOTES, "UTF-8"));
-        $selectCount->bindParam(':secondInput', htmlspecialchars("%" . $queryExtended[1] . "%", ENT_QUOTES, "UTF-8"));
-        $selectCount->bindParam(':bothInputs', htmlspecialchars("%" . $queryExtended[0] . " " . $queryExtended[1] . "%", ENT_QUOTES, "UTF-8"));
-        $selectCount->execute();
-
-    } else if ($amountQueryParts == 3) {
-        $select = $adapter->prepare("SELECT `prename`, `lastname`, `email`, `id`, `type`, `department`, `mobile`, `phone`, `room` FROM `people` WHERE `prename` LIKE :firstPossibilityPrename AND `lastname` LIKE :firstPossibilityLastname OR `prename` LIKE :secondPossibilityPrename AND `lastname` LIKE :secondPossibilityLastname ORDER BY `lastname` ASC LIMIT :limit OFFSET :offset");
-
-        $firstInput = $queryExtended[0];
-        $secondInput = $queryExtended[1];
-        $thirdInput = $queryExtended[2];
-
-        $select->bindParam(':firstPossibilityPrename', htmlspecialchars("%" . $firstInput . " " . $secondInput . "%", ENT_QUOTES, "UTF-8"));
-        $select->bindParam(':firstPossibilityLastname', htmlspecialchars("%" . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
-        $select->bindParam(':secondPossibilityLastname', htmlspecialchars("%" . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
-        $select->bindParam(':secondPossibilityPrename', htmlspecialchars("%" . $secondInput . " " . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
-        $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
-        $select->bindParam(':offset', intval(htmlspecialchars($offset)), PDO::PARAM_INT);
-
-        $result = $select->execute();
-
-        $selectCount = $adapter->prepare("SELECT count(*) AS count FROM `people` WHERE `prename` LIKE :firstPossibilityPrename AND `lastname` LIKE :firstPossibilityLastname OR `prename` LIKE :secondPossibilityPrename AND `lastname` LIKE :secondPossibilityLastname");
-        $selectCount->bindParam(':firstPossibilityPrename', htmlspecialchars("%" . $firstInput . " " . $secondInput . "%", ENT_QUOTES, "UTF-8"));
-        $selectCount->bindParam(':firstPossibilityLastname', htmlspecialchars("%" . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
-        $selectCount->bindParam(':secondPossibilityLastname', htmlspecialchars("%" . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
-        $selectCount->bindParam(':secondPossibilityPrename', htmlspecialchars("%" . $secondInput . " " . $thirdInput . "%", ENT_QUOTES, "UTF-8"));
-        $selectCount->execute();
+    foreach ($years as $year) {
+        $count = $adapter->query("SELECT count(*) AS count FROM people WHERE email LIKE '%" . $year . "%'");
+        $count->bindParam(':year', $year);
+        $count->execute();
+        $all = $count->fetch(PDO::FETCH_ASSOC);
+        $statistic[$year] = $all["count"];
     }
 
-    $count = $selectCount->fetch(PDO::FETCH_ASSOC);
-    $count = $count["count"];
+    $count = $adapter->prepare("SELECT count(*) AS count FROM people");
+    $result = $count->execute();
+    $all = $count->fetch(PDO::FETCH_ASSOC);
+    $statistic["all"] = $all["count"];
+
+    $count = $adapter->prepare("SELECT count(*) AS count FROM people WHERE email IS NULL");
+    $result = $count->execute();
+    $all = $count->fetch(PDO::FETCH_ASSOC);
+    $statistic["unknown"] = $all["count"];
 
     if (!$result) {
         header("HTTP/1.0 500 Internal Server Error");
     } else {
-        return array(
-            "people" => $select->fetchAll(PDO::FETCH_ASSOC),
-            "count" => $count,
-            "offset" => $offset
-        );
+        return $statistic;
     }
 }
 

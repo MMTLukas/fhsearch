@@ -1,4 +1,4 @@
-var app = angular.module("fhs-search", ["ui.router", "ui.bootstrap", "ngSanitize"]);
+var app = angular.module("fhs-search", ["ui.router", "ui.bootstrap"]);
 
 angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $location) {
     var url = "backend/interface/query.php";
@@ -31,7 +31,7 @@ angular.module('fhs-search').controller('SearchCtrl', function ($scope, $http, $
      * Get people and details from the server
      */
     var getPeople = function () {
-        $http.post(url, {"data": $scope.query, "offset": $scope.offset})
+        $http.post(url, {"data": $scope.query.trim(), "offset": $scope.offset})
             .success(function (data) {
                 $scope.persons = data.people;
                 $scope.totalItems = parseInt(data.count, 10);

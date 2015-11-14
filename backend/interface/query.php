@@ -11,10 +11,8 @@
     $offset = $decoded["offset"];
     $results = array();
 
-    if (stripos($data, "fhs") !== false && strlen($data) >= 6) {
-      $results = getPeopleByFhs(strtolower($data), $offset);
-    }  else {
-      $results = getPeopleByNameAndGroup($data, $offset);
+    if (strlen($data) >= 3) {
+      $results = getPeople(strtolower($data), $offset);
     }
 
     echo json_encode($results);
