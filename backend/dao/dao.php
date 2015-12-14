@@ -114,11 +114,7 @@ function getPeople($data, $offset)
     global $DSN, $DB_USER, $DB_PASS, $LIMIT;
     $adapter = new PDO($DSN, $DB_USER, $DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die(false);
 
-    $data = "+" . $data;
-    $data = str_replace(" ", "* +", $data);
-    $data = $data + "*";
-
-    $select = $adapter->prepare("SELECT * FROM people WHERE MATCH (search) AGAINST (:data IN BOOLEAN MODE) LIMIT :limit OFFSET :offset");
+    $select = $adapter->prepare("SELECT *, MATCH (search) AGAINST (:data IN BOOLEAN MODE) as score FROM people WHERE MATCH (search) AGAINST (:data IN BOOLEAN MODE) ORDER BY score DESC LIMIT :limit OFFSET :offset");
     $select->bindParam(':data', htmlspecialchars($data, ENT_QUOTES, "UTF-8"));
     $select->bindParam(':limit', $LIMIT, PDO::PARAM_INT);
     $select->bindParam(':offset', intval(htmlspecialchars($offset)), PDO::PARAM_INT);
@@ -167,11 +163,10 @@ function getStatistic()
     $years = array("1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015");
 
     foreach ($years as $year) {
-        $count = $adapter->query("SELECT count(*) AS count FROM people WHERE email LIKE '%" . $year . "%'");
+        $count = $adapter->query("SELECT d.department as department, count(d.department) as count FROM (SELECT SUBSTRING(email, LOCATE('.', email) + 1, LOCATE('@', email) - LOCATE('.', email) - 7) AS department FROM people WHERE email LIKE '%" . $year . "%') d GROUP BY d.department");
         $count->bindParam(':year', $year);
         $count->execute();
-        $all = $count->fetch(PDO::FETCH_ASSOC);
-        $statistic[$year] = $all["count"];
+        $statistic[$year] = $count->fetchAll(PDO::FETCH_ASSOC);
     }
 
     $count = $adapter->prepare("SELECT count(*) AS count FROM people");
@@ -182,7 +177,7 @@ function getStatistic()
     $count = $adapter->prepare("SELECT count(*) AS count FROM people WHERE email IS NULL");
     $result = $count->execute();
     $all = $count->fetch(PDO::FETCH_ASSOC);
-    $statistic["unknown"] = $all["count"];
+    $statistic["not associated"] = $all["count"];
 
     if (!$result) {
         header("HTTP/1.0 500 Internal Server Error");
