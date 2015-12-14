@@ -12,25 +12,9 @@ if (isset($decoded["data"])) {
     $results = array();
 
     if (strlen($data) >= 3 && !(strlen($data) < 6 && stripos($data, "fhs") !== false)) {
-
         $data = "+" . $data;
-        $data = str_replace(" ", " +", $data);
-
-        if (stripos($data, "fhs")) {
-            $positionFHS = stripos($data, "fhs");
-            $positionNextParameter = stripos($data, " ", $positionFHS);
-
-            if ($positionNextParameter !== false) {
-                if ($positionNextParameter - $positionFHS < 8) {
-                    $stringToReplace = substr($data, stripos($data, "fhs"), $positionNextParameter - 1);
-                    $data = str_replace($stringToReplace, $stringToReplace . "*", $data);
-                }
-            } else {
-                $data = $data . "*";
-            }
-        }
-
-        //var_dump($data);
+        $data = str_replace(" ", "* +", $data);
+        $data = $data . "*";
 
         $results = getPeople($data, $offset);
     }
