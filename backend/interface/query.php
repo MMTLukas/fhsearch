@@ -15,7 +15,6 @@ if (isset($decoded["data"])) {
         $data = "+" . $data;
         $data = str_replace(" ", "* +", $data);
         $data = $data . "*";
-
         $results = getPeople($data, $offset);
     }
     echo json_encode($results);

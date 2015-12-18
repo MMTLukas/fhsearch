@@ -17,10 +17,12 @@ class Human
     protected $type;
     protected $id;
     protected $email;
+    protected $state;
     protected $pictureUrlFhs;
     protected $pictureUrlLocal;
 
-    public static function fromOverview($prename, $lastname, $department, $type, $id){
+    public static function fromOverview($prename, $lastname, $department, $type, $id)
+    {
         $human = new self();
 
         $human->prename = $prename;
@@ -32,7 +34,8 @@ class Human
         return $human;
     }
 
-    public static function fromDetails($id, $email, $pictureUrlFhs, $phone, $mobile, $room) {
+    public static function fromDetails($id, $email, $pictureUrlFhs, $phone, $mobile, $room, $state)
+    {
         $human = new self();
 
         $human->id = $id;
@@ -41,10 +44,37 @@ class Human
         $human->phone = $phone;
         $human->mobile = $mobile;
         $human->room = $room;
+        $human->state = $state;
 
         return $human;
     }
 
+    public function getFullText()
+    {
+        $addition = "";
+
+        //TODO add other departments and shorten names
+        if (strpos($this->email, "mma") !== false) {
+            $addition = "MultiMediaArt";
+        }
+        elseif(strpos($this->department, "MultiMediaArt") !== false){
+            $addition = "mma";
+        }
+
+        if (strpos($this->email, "mmt") !== false) {
+            $addition = "MultiMediaTechnology";
+        }
+        elseif(strpos($this->department, "MultiMediaTechnology") !== false){
+            $addition = "mmt";
+        }
+
+        $state = str_replace(",", "", $this->state);
+        $state = str_replace("\n", " ", $state);
+
+        return $this->prename . " " . $this->lastname . " " . $this->department . " " . $addition .
+            " " . $this->email . " " . $this->id . " " . $this->mobile . " " . $this->phone . " " .
+            $this->room . " " . $this->type . " " . $state;
+    }
 
     public function getLastname()
     {
@@ -64,6 +94,16 @@ class Human
     public function setDepartment($value)
     {
         $this->department = $value;
+    }
+
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    public function setState($state)
+    {
+        $this->state = $state;
     }
 
     public function getType()
